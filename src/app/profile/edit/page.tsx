@@ -18,7 +18,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { es, enUS } from 'date-fns/locale';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useTranslation } from 'react-i18next';
 
@@ -121,7 +121,7 @@ export default function EditProfilePage() {
             timezone: data.timezone || 'gmt-3',
             twoFactorEnabled: data.twoFactorEnabled || false,
             role: data.roles?.[0]?.role?.name || 'N/A',
-            createdAt: data.createdAt ? format(new Date(data.createdAt), "dd 'de' MMMM, yyyy", { locale: es }) : 'N/A',
+            createdAt: data.createdAt ? format(new Date(data.createdAt), "dd 'de' MMMM, yyyy", { locale: i18n.language === 'es' ? es : enUS }) : 'N/A',
             countryCode,
             phoneNumber
         };
@@ -139,14 +139,14 @@ export default function EditProfilePage() {
 
     } catch (error) {
         toast({
-            title: 'Error al cargar perfil',
-            description: 'No se pudieron obtener los datos de tu perfil.',
+            title: t('profile.errorLoading'),
+            description: t('profile.errorLoadingDesc'),
             variant: 'destructive',
         });
     } finally {
         setIsLoading(false);
     }
-  }, [accessToken, toast, i18n]);
+  }, [accessToken, toast, i18n, t]);
 
   useEffect(() => {
     fetchProfile();
@@ -187,12 +187,12 @@ export default function EditProfilePage() {
 
     if (formData.newPassword) {
         if (formData.newPassword !== formData.confirmPassword) {
-            toast({ title: "Error", description: "Las contraseñas no coinciden.", variant: "destructive" });
+            toast({ title: t('profile.errorPasswordMismatch.title'), description: t('profile.errorPasswordMismatch.description'), variant: "destructive" });
             setIsSubmitting(false);
             return;
         }
         if (!formData.oldPassword) {
-            toast({ title: "Error", description: "Debes ingresar tu contraseña anterior para cambiarla.", variant: "destructive" });
+            toast({ title: t('profile.errorOldPassword.title'), description: t('profile.errorOldPassword.description'), variant: "destructive" });
             setIsSubmitting(false);
             return;
         }
@@ -201,7 +201,7 @@ export default function EditProfilePage() {
     }
     
     if (Object.keys(payload).length === 0) {
-        toast({ title: "Sin cambios", description: "No has modificado ningún dato." });
+        toast({ title: t('profile.errorNoChanges.title'), description: t('profile.errorNoChanges.description') });
         setIsSubmitting(false);
         return;
     }
@@ -221,14 +221,14 @@ export default function EditProfilePage() {
             throw new Error(errorData.message || 'Error al actualizar el perfil.');
         }
 
-        toast({ title: "Perfil actualizado", description: "Tus cambios han sido guardados con éxito." });
+        toast({ title: t('profile.successUpdate.title'), description: t('profile.successUpdate.description') });
         fetchProfile(); // Re-fetch to update initialData and language
         
         // Clear password fields after successful submission
         setFormData(prev => ({...prev, oldPassword: '', newPassword: '', confirmPassword: ''}));
 
     } catch (error: any) {
-        toast({ title: "Error al guardar", description: error.message, variant: "destructive" });
+        toast({ title: t('profile.errorSaving.title'), description: error.message, variant: "destructive" });
     } finally {
         setIsSubmitting(false);
     }
@@ -423,12 +423,12 @@ export default function EditProfilePage() {
                     <Card>
                         <CardContent className="space-y-6 pt-6">
                              <div className="flex items-center justify-between rounded-lg border p-4">
-                                <Label htmlFor="poker-connect" className="font-semibold">Conectar a jugadores de póker en este nivel</Label>
+                                <Label htmlFor="poker-connect" className="font-semibold">{t('profile.gameSettings.connectPoker')}</Label>
                                 <Switch id="poker-connect" />
                              </div>
                              <div className="flex items-center justify-between rounded-lg border p-4">
                                 <div>
-                                    <Label htmlFor="poker-active" className="font-semibold">Activo</Label>
+                                    <Label htmlFor="poker-active" className="font-semibold">{t('profile.gameSettings.active')}</Label>
                                 </div>
                                 <Switch id="poker-active" defaultChecked />
                             </div>
@@ -446,8 +446,8 @@ export default function EditProfilePage() {
                                             <div className="p-4 bg-muted/20 rounded-md space-y-6">
                                                 
                                                 <div className="space-y-4">
-                                                    <h4 className='font-semibold'>Configuración general</h4>
-                                                    <FormRow label="RTP">
+                                                    <h4 className='font-semibold'>{t('profile.gameSettings.generalConfig')}</h4>
+                                                    <FormRow label={t('profile.gameSettings.rtp')}>
                                                         <Select defaultValue="95">
                                                             <SelectTrigger><SelectValue /></SelectTrigger>
                                                             <SelectContent>
@@ -455,16 +455,16 @@ export default function EditProfilePage() {
                                                             </SelectContent>
                                                         </Select>
                                                     </FormRow>
-                                                    <FormRow label="Tasa mínima"><Input type="number" defaultValue="0.01" /></FormRow>
-                                                    <FormRow label="Apuesta total máxima"><Input type="number" defaultValue="10000.00" /></FormRow>
-                                                    <FormRow label="Demo equilibrar"><Input type="number" defaultValue="0" /></FormRow>
+                                                    <FormRow label={t('profile.gameSettings.minRate')}><Input type="number" defaultValue="0.01" /></FormRow>
+                                                    <FormRow label={t('profile.gameSettings.maxTotalBet')}><Input type="number" defaultValue="10000.00" /></FormRow>
+                                                    <FormRow label={t('profile.gameSettings.demoBalance')}><Input type="number" defaultValue="0" /></FormRow>
                                                 </div>
 
                                                 <Separator />
 
                                                 <div className='space-y-4'>
-                                                    <h4 className='font-semibold'>Games System</h4>
-                                                    <FormRow label="la pantalla" subLabel='La sala'>
+                                                    <h4 className='font-semibold'>{t('profile.gameSettings.gamesSystem')}</h4>
+                                                    <FormRow label={t('profile.gameSettings.screen')} subLabel={t('profile.gameSettings.room')}>
                                                          <Select defaultValue="3x4">
                                                             <SelectTrigger><SelectValue /></SelectTrigger>
                                                             <SelectContent>
@@ -472,7 +472,7 @@ export default function EditProfilePage() {
                                                             </SelectContent>
                                                         </Select>
                                                     </FormRow>
-                                                    <FormRow label="EGT JACKPOT">
+                                                    <FormRow label={t('profile.gameSettings.egtJackpot')}>
                                                         <div className="flex items-center h-full">
                                                           <Checkbox />
                                                         </div>
@@ -482,8 +482,8 @@ export default function EditProfilePage() {
                                                 <Separator />
 
                                                 <div className='space-y-4'>
-                                                    <h4 className='font-semibold'>Tragamonedas</h4>
-                                                    <FormRow label="Denominación" subLabel='Igrosoft, American Poker II'>
+                                                    <h4 className='font-semibold'>{t('profile.gameSettings.slots')}</h4>
+                                                    <FormRow label={t('profile.gameSettings.denomination')} subLabel={t('profile.gameSettings.igrosoftAmericanPoker')}>
                                                          <Select defaultValue="0.01">
                                                             <SelectTrigger><SelectValue /></SelectTrigger>
                                                             <SelectContent>
@@ -491,7 +491,7 @@ export default function EditProfilePage() {
                                                             </SelectContent>
                                                         </Select>
                                                     </FormRow>
-                                                    <FormRow label="Denominación" subLabel='Aristocrat, Novomatic, Merkur'>
+                                                    <FormRow label={t('profile.gameSettings.denomination')} subLabel={t('profile.gameSettings.aristocratNovomaticMerkur')}>
                                                          <Select defaultValue="true">
                                                             <SelectTrigger><SelectValue /></SelectTrigger>
                                                             <SelectContent>
@@ -500,7 +500,7 @@ export default function EditProfilePage() {
                                                             </SelectContent>
                                                         </Select>
                                                     </FormRow>
-                                                    <FormRow label="Novomatic (menos 5 líneas)">
+                                                    <FormRow label={t('profile.gameSettings.novomatic5Lines')}>
                                                         <div className="flex items-center h-full">
                                                           <Checkbox />
                                                         </div>
@@ -510,10 +510,10 @@ export default function EditProfilePage() {
                                                 <Separator />
 
                                                 <div className='space-y-4'>
-                                                    <h4 className='font-semibold'>ImperiumBet</h4>
-                                                    <FormRow label="Tasa mínima"><Input type="number" defaultValue="0.10" /></FormRow>
-                                                    <FormRow label="Apuesta total máxima"><Input type="number" defaultValue="50.00" /></FormRow>
-                                                    <FormRow label="Solo una apuesta por evento">
+                                                    <h4 className='font-semibold'>{t('profile.gameSettings.imperiumBet')}</h4>
+                                                    <FormRow label={t('profile.gameSettings.minRate')}><Input type="number" defaultValue="0.10" /></FormRow>
+                                                    <FormRow label={t('profile.gameSettings.maxTotalBet')}><Input type="number" defaultValue="50.00" /></FormRow>
+                                                    <FormRow label={t('profile.gameSettings.oneBetPerEvent')}>
                                                         <div className="flex items-center h-full">
                                                           <Checkbox />
                                                         </div>
@@ -542,3 +542,5 @@ export default function EditProfilePage() {
     </main>
   );
 }
+
+    

@@ -117,14 +117,27 @@ const resources = {
           "imperiumBet": "ImperiumBet",
           "oneBetPerEvent": "Only one bet per event"
         },
-        "successUpdate": "Profile updated",
-        "successUpdateDesc": "Your changes have been saved successfully.",
+        "successUpdate": {
+            "title": "Profile updated",
+            "description": "Your changes have been saved successfully."
+        },
         "errorLoading": "Error loading profile",
         "errorLoadingDesc": "Could not get your profile data.",
-        "errorPasswordMismatch": "Passwords do not match.",
-        "errorOldPassword": "You must enter your old password to change it.",
-        "errorNoChanges": "You have not modified any data.",
-        "errorSaving": "Error saving",
+        "errorPasswordMismatch": {
+            "title": "Error",
+            "description": "Passwords do not match."
+        },
+        "errorOldPassword": {
+            "title": "Error",
+            "description": "You must enter your old password to change it."
+        },
+        "errorNoChanges": {
+            "title": "No changes",
+            "description": "You have not modified any data."
+        },
+        "errorSaving": {
+            "title": "Error saving"
+        }
       },
       "datePicker": {
         "pickDate": "Pick a date"
@@ -181,7 +194,7 @@ const resources = {
         "insufficientFunds": "Insufficient Funds",
         "insufficientFundsDesc": "Cannot withdraw more than the current balance of {{balance}}.",
         "successTitle": "Success!",
-        "successDesc": "A {{action}} of {{amount}} for {{name}} was successfully processed.",
+        "successDesc": "A {{actionType}} of {{amount}} for {{name}} was successfully processed.",
         "cancel": "Cancel",
         "confirm": "Confirm {{action}}"
       },
@@ -511,14 +524,27 @@ const resources = {
             "imperiumBet": "ImperiumBet",
             "oneBetPerEvent": "Solo una apuesta por evento"
         },
-        "successUpdate": "Perfil actualizado",
-        "successUpdateDesc": "Tus cambios han sido guardados con éxito.",
+        "successUpdate": {
+            "title": "Perfil actualizado",
+            "description": "Tus cambios han sido guardados con éxito."
+        },
         "errorLoading": "Error al cargar perfil",
         "errorLoadingDesc": "No se pudieron obtener los datos de tu perfil.",
-        "errorPasswordMismatch": "Las contraseñas no coinciden.",
-        "errorOldPassword": "Debes ingresar tu contraseña anterior para cambiarla.",
-        "errorNoChanges": "No has modificado ningún dato.",
-        "errorSaving": "Error al guardar"
+        "errorPasswordMismatch": {
+            "title": "Error",
+            "description": "Las contraseñas no coinciden."
+        },
+        "errorOldPassword": {
+            "title": "Error",
+            "description": "Debes ingresar tu contraseña anterior para cambiarla."
+        },
+        "errorNoChanges": {
+            "title": "Sin cambios",
+            "description": "No has modificado ningún dato."
+        },
+        "errorSaving": {
+            "title": "Error al guardar"
+        }
       },
       "datePicker": {
         "pickDate": "Elegir fecha"
@@ -816,3 +842,5 @@ i18n
 
 export default i18n;
 
+
+    
