@@ -1,0 +1,36 @@
+
+{
+  "profile": {
+    "breadcrumb": "Edit Profile",
+    "title": "Account Settings",
+    "description": "Manage your profile details and security settings.",
+    "generalInfoTab": "General Information",
+    "gameSettingsTab": "Game Settings",
+    "username": "Username",
+    "fullName": "Full Name",
+    "role": "Role",
+    "memberSince": "Member since",
+    "preferredLanguage": "Preferred Language",
+    "timezone": "Timezone",
+    "phone": "Phone",
+    "security": {
+      "title": "Security",
+      "twoFactor": {
+        "label": "Two-factor authentication",
+        "description": "Secure your account with an extra verification step."
+      }
+    },
+    "changePassword": {
+      "title": "Change Password",
+      "oldPassword": "Old Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password"
+    },
+    "saveChanges": "Save Changes",
+    "saving": "Saving..."
+  },
+  "languages": {
+    "en": "English",
+    "es": "Spanish"
+  }
+}

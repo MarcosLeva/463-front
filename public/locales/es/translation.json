@@ -1,0 +1,36 @@
+
+{
+  "profile": {
+    "breadcrumb": "Editar Perfil",
+    "title": "Configuración de la cuenta",
+    "description": "Gestiona los detalles de tu perfil y la configuración de seguridad.",
+    "generalInfoTab": "Información General",
+    "gameSettingsTab": "Configuración del juego",
+    "username": "Nombre de usuario",
+    "fullName": "Nombre Completo",
+    "role": "Rol",
+    "memberSince": "Miembro desde",
+    "preferredLanguage": "Idioma preferido",
+    "timezone": "Zona horaria",
+    "phone": "Teléfono",
+    "security": {
+      "title": "Seguridad",
+      "twoFactor": {
+        "label": "Autenticación de dos factores",
+        "description": "Asegura tu cuenta con un paso de verificación adicional."
+      }
+    },
+    "changePassword": {
+      "title": "Cambiar contraseña",
+      "oldPassword": "Contraseña anterior",
+      "newPassword": "Contraseña nueva",
+      "confirmPassword": "Confirmar contraseña"
+    },
+    "saveChanges": "Guardar Cambios",
+    "saving": "Guardando..."
+  },
+  "languages": {
+    "en": "Inglés",
+    "es": "Español"
+  }
+}
