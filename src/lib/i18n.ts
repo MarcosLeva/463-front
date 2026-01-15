@@ -121,8 +121,10 @@ const resources = {
             "title": "Profile updated",
             "description": "Your changes have been saved successfully."
         },
-        "errorLoading": "Error loading profile",
-        "errorLoadingDesc": "Could not get your profile data.",
+        "errorLoading": {
+            "title": "Error loading profile",
+            "description": "Could not get your profile data."
+        },
         "errorPasswordMismatch": {
             "title": "Error",
             "description": "Passwords do not match."
@@ -528,8 +530,10 @@ const resources = {
             "title": "Perfil actualizado",
             "description": "Tus cambios han sido guardados con éxito."
         },
-        "errorLoading": "Error al cargar perfil",
-        "errorLoadingDesc": "No se pudieron obtener los datos de tu perfil.",
+        "errorLoading": {
+            "title": "Error al cargar perfil",
+            "description": "No se pudieron obtener los datos de tu perfil."
+        },
         "errorPasswordMismatch": {
             "title": "Error",
             "description": "Las contraseñas no coinciden."
@@ -841,6 +845,5 @@ i18n
   });
 
 export default i18n;
-
 
     

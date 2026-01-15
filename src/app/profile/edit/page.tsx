@@ -139,14 +139,15 @@ export default function EditProfilePage() {
 
     } catch (error) {
         toast({
-            title: t('profile.errorLoading'),
-            description: t('profile.errorLoadingDesc'),
+            title: t('profile.errorLoading.title'),
+            description: t('profile.errorLoading.description'),
             variant: 'destructive',
         });
     } finally {
         setIsLoading(false);
     }
-  }, [accessToken, toast, i18n, t]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accessToken]);
 
   useEffect(() => {
     fetchProfile();
