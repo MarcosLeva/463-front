@@ -196,7 +196,7 @@ export function Header({ isSidebarCollapsed, toggleSidebar }: HeaderProps) {
               <span className="text-muted-foreground">|</span>
               <span>207000145.00</span>
             </div>
-            <Select defaultValue="UYU">
+            <Select defaultValue="USD">
               <SelectTrigger className="w-[80px] bg-background/20 border-border/50">
                 <SelectValue />
               </SelectTrigger>
