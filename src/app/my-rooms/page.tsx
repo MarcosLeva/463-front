@@ -30,7 +30,7 @@ import {
 } from '@/components/ui/table';
 import { roomsData } from '@/lib/data';
 import type { Room } from '@/lib/types';
-import { Home, ChevronRight, Gamepad2 } from 'lucide-react';
+import { Home, ChevronRight, Gamepad2, PlusCircle } from 'lucide-react';
 import { PaginationControls } from '@/components/dashboard/pagination-controls';
 import Link from 'next/link';
 import { TableSkeleton } from '@/components/dashboard/table-skeleton';
@@ -197,8 +197,14 @@ export default function MyRoomsPage() {
         <span>{t('myRooms.breadcrumb')}</span>
       </div>
       <Card>
-        <CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>{t('myRooms.title')}</CardTitle>
+            <Button asChild className="bg-green-600 hover:bg-green-700">
+                <Link href="/my-rooms/create">
+                    <PlusCircle className="mr-2 h-4 w-4" />
+                    {t('myRooms.createRoom')}
+                </Link>
+            </Button>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-4">

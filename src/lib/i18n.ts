@@ -424,6 +424,7 @@ const resources = {
         "all": "All",
         "show": "Show",
         "noData": "No data available.",
+        "createRoom": "Create Room",
         "table": {
           "id": "ID",
           "active": "Active",
@@ -434,6 +435,31 @@ const resources = {
           "profit": "Profit",
           "rtp": "RTP",
           "total": "Total"
+        }
+      },
+      "createRoom": {
+        "breadcrumb": "Create Room",
+        "title": "Create Hall",
+        "hallName": "Hall Name",
+        "currency": "Currency",
+        "integrationType": "Integration Type",
+        "create": "Create",
+        "creating": "Creating...",
+        "cancel": "Cancel",
+        "validation": {
+            "errorTitle": "Validation Error",
+            "title": "Hall name requirements",
+            "length": "Between 5 and 25 characters",
+            "characters": "Only letters, numbers, underscores, and hyphens",
+            "noSpaces": "Cannot contain spaces or special characters"
+        },
+        "integrationTypes": {
+            "seamless": "Seamless",
+            "individual": "Individual"
+        },
+        "success": {
+            "title": "Room Created",
+            "description": "The room '{{name}}' has been created successfully."
         }
       }
     }
@@ -854,6 +880,7 @@ const resources = {
         "all": "Todos",
         "show": "Mostrar",
         "noData": "No hay datos disponibles.",
+        "createRoom": "Crear Sala",
         "table": {
           "id": "ID",
           "active": "Activo",
@@ -864,6 +891,31 @@ const resources = {
           "profit": "Lucro",
           "rtp": "RTP",
           "total": "Total"
+        }
+      },
+      "createRoom": {
+        "breadcrumb": "Crear Sala",
+        "title": "Crear Sala",
+        "hallName": "Nombre de la sala",
+        "currency": "Divisa",
+        "integrationType": "Tipo de integración",
+        "create": "Crear",
+        "creating": "Creando...",
+        "cancel": "Cancelar",
+        "validation": {
+            "errorTitle": "Error de Validación",
+            "title": "Requisitos del nombre de la sala",
+            "length": "Entre 5 y 25 caracteres",
+            "characters": "Solo letras, números, guiones bajos y guiones",
+            "noSpaces": "No puede contener espacios ni caracteres especiales"
+        },
+        "integrationTypes": {
+            "seamless": "Seamless",
+            "individual": "Individual"
+        },
+        "success": {
+            "title": "Sala Creada",
+            "description": "La sala '{{name}}' ha sido creada con éxito."
         }
       }
     }
