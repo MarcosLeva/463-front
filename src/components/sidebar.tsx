@@ -25,6 +25,7 @@ import {
   Menu,
   X,
   Building,
+  PlusCircle,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -101,6 +102,7 @@ export function Sidebar({ isCollapsed }: { isCollapsed: boolean; }) {
 
   const roomsNavItems = [
     { href: '/my-rooms', icon: Building, label: t('sidebar.myRooms') },
+    { href: '/my-rooms/create', icon: PlusCircle, label: t('sidebar.createRoom') },
   ];
 
   useEffect(() => {

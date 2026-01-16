@@ -35,6 +35,7 @@ const resources = {
       "sidebar": {
         "users": "USERS",
         "myRooms": "MY ROOMS",
+        "createRoom": "CREATE ROOM",
         "editProfile": "EDIT",
         "latestTransactions": "LATEST TRANSACTIONS",
         "createUser": "CREATE A USER",
@@ -492,6 +493,7 @@ const resources = {
       "sidebar": {
         "users": "USUARIOS",
         "myRooms": "MIS SALAS",
+        "createRoom": "CREAR SALA",
         "editProfile": "EDITAR",
         "latestTransactions": "ÚLTIMAS TRANSACCIONES",
         "createUser": "CREAR UN USUARIO",

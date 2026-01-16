@@ -2,7 +2,7 @@
 
 'use client';
 
-import { Globe, Laptop, PanelLeft, UserCog, UserPlus, BarChartHorizontal, PieChart, History, Shuffle, ChevronsLeft, Search, Menu, X, Building } from 'lucide-react';
+import { Globe, Laptop, PanelLeft, UserCog, UserPlus, BarChartHorizontal, PieChart, History, Shuffle, ChevronsLeft, Search, Menu, X, Building, PlusCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -60,6 +60,7 @@ export function Header({ isSidebarCollapsed, toggleSidebar }: HeaderProps) {
 
   const roomsNavItems = [
       { href: '/my-rooms', icon: Building, label: t('sidebar.myRooms') },
+      { href: '/my-rooms/create', icon: PlusCircle, label: t('sidebar.createRoom') },
   ];
 
   const handleLinkClick = (id?: string) => {
