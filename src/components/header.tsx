@@ -28,6 +28,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import Image from 'next/image';
 import { Input } from './ui/input';
 import { useTranslation } from 'react-i18next';
+import { Separator } from './ui/separator';
 
 
 interface HeaderProps {
@@ -45,9 +46,8 @@ export function Header({ isSidebarCollapsed, toggleSidebar }: HeaderProps) {
   const router = useRouter();
   const { logout } = useAuthStore();
 
-  const navItems = [
+  const mainNavItems = [
       { href: '/dashboard', icon: Home, label: t('sidebar.users') },
-      { href: '/my-rooms', icon: Building, label: t('sidebar.myRooms') },
       { href: '/profile/edit', icon: FilePen, label: t('sidebar.editProfile'), id: 'edit-profile' },
       { href: '/balance-history', icon: Repeat, label: t('sidebar.latestTransactions') },
       { href: '#', icon: UserPlus, label: t('sidebar.createUser'), id: 'create-user' },
@@ -56,6 +56,10 @@ export function Header({ isSidebarCollapsed, toggleSidebar }: HeaderProps) {
       { href: '/profile/edit?tab=game_settings', icon: Wallet, label: t('sidebar.gameSettings'), id: 'game-settings' },
       { href: '/changes', icon: History, label: t('sidebar.changes') },
       { href: '/intersection-ip', icon: Shuffle, label: t('sidebar.intersectionIp') },
+  ];
+
+  const roomsNavItems = [
+      { href: '/my-rooms', icon: Building, label: t('sidebar.myRooms') },
   ];
 
   const handleLinkClick = (id?: string) => {
@@ -84,30 +88,50 @@ export function Header({ isSidebarCollapsed, toggleSidebar }: HeaderProps) {
 
   const NavContent = ({ onLinkClick }: { onLinkClick: (id?: string) => void }) => {
     return (
-      <nav className="grid items-start gap-1 px-2 text-sm font-medium">
-        {navItems.map((item) => (
-          <Link
-            key={item.label}
-            href={item.href}
-            onClick={(e) => {
-              if (item.id === 'create-user') {
-                e.preventDefault();
-                onLinkClick(item.id);
-              } else {
-                onLinkClick();
-              }
-            }}
-            className={cn(
-              'flex items-center gap-3 rounded-lg px-3 py-2 text-sidebar-foreground transition-all hover:bg-sidebar-accent hover:text-sidebar-primary',
-              isActive(item.href, item.id) && 'bg-sidebar-accent text-sidebar-primary',
-              'cursor-pointer text-xs'
-            )}
-          >
-            <item.icon className="h-4 w-4" />
-            {item.label}
-          </Link>
-        ))}
-      </nav>
+      <>
+        <nav className="grid items-start gap-1 px-2 text-sm font-medium">
+          {mainNavItems.map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              onClick={(e) => {
+                if (item.id === 'create-user') {
+                  e.preventDefault();
+                  onLinkClick(item.id);
+                } else {
+                  onLinkClick();
+                }
+              }}
+              className={cn(
+                'flex items-center gap-3 rounded-lg px-3 py-2 text-sidebar-foreground transition-all hover:bg-sidebar-accent hover:text-sidebar-primary',
+                isActive(item.href, item.id) && 'bg-sidebar-accent text-sidebar-primary',
+                'cursor-pointer text-xs'
+              )}
+            >
+              <item.icon className="h-4 w-4" />
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+        <Separator className="my-2" />
+        <nav className="grid items-start gap-1 px-2 text-sm font-medium">
+          {roomsNavItems.map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              onClick={() => onLinkClick()}
+              className={cn(
+                'flex items-center gap-3 rounded-lg px-3 py-2 text-sidebar-foreground transition-all hover:bg-sidebar-accent hover:text-sidebar-primary',
+                isActive(item.href) && 'bg-sidebar-accent text-sidebar-primary',
+                'cursor-pointer text-xs'
+              )}
+            >
+              <item.icon className="h-4 w-4" />
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+      </>
     );
   }
 

@@ -38,6 +38,7 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 import { useTranslation } from 'react-i18next';
+import { Separator } from './ui/separator';
 
 
 const LogoutNavContent = ({ isCollapsed }: { isCollapsed: boolean }) => {
@@ -86,9 +87,8 @@ export function Sidebar({ isCollapsed }: { isCollapsed: boolean; }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const navItems = [
+  const mainNavItems = [
     { href: '/dashboard', icon: Home, label: t('sidebar.users') },
-    { href: '/my-rooms', icon: Building, label: t('sidebar.myRooms') },
     { href: '/profile/edit', icon: FilePen, label: t('sidebar.editProfile'), id: 'edit-profile' },
     { href: '/balance-history', icon: Repeat, label: t('sidebar.latestTransactions') },
     { href: '#', icon: UserPlus, label: t('sidebar.createUser'), id: 'create-user' },
@@ -97,6 +97,10 @@ export function Sidebar({ isCollapsed }: { isCollapsed: boolean; }) {
     { href: '/profile/edit?tab=game_settings', icon: Wallet, label: t('sidebar.gameSettings'), id: 'game-settings' },
     { href: '/changes', icon: History, label: t('sidebar.changes') },
     { href: '/intersection-ip', icon: Shuffle, label: t('sidebar.intersectionIp') },
+  ];
+
+  const roomsNavItems = [
+    { href: '/my-rooms', icon: Building, label: t('sidebar.myRooms') },
   ];
 
   useEffect(() => {
@@ -147,7 +151,7 @@ export function Sidebar({ isCollapsed }: { isCollapsed: boolean; }) {
         <div className="flex flex-1 flex-col justify-start py-2 overflow-y-auto">
           <TooltipProvider>
             <nav className="flex flex-col items-stretch gap-1 px-2 text-sm font-medium">
-              {navItems.map((item) => (
+              {mainNavItems.map((item) => (
                 <Tooltip key={item.label} delayDuration={0}>
                   <TooltipTrigger asChild>
                       <Link
@@ -161,6 +165,32 @@ export function Sidebar({ isCollapsed }: { isCollapsed: boolean; }) {
                         className={cn(
                           'flex items-center gap-3 rounded-lg px-3 py-2 text-sidebar-foreground transition-all hover:bg-sidebar-accent hover:text-sidebar-primary',
                           isActive(item.href, item.id) && 'bg-sidebar-accent text-sidebar-primary',
+                          isCollapsed && 'justify-center',
+                          'cursor-pointer text-xs'
+                        )}
+                      >
+                        <item.icon className="h-4 w-4" />
+                        <span className={cn('overflow-hidden transition-all', isCollapsed ? 'w-0' : 'w-auto')}>{item.label}</span>
+                      </Link>
+                  </TooltipTrigger>
+                  {isCollapsed && (
+                    <TooltipContent side="right">
+                      {item.label}
+                    </TooltipContent>
+                  )}
+                </Tooltip>
+              ))}
+            </nav>
+            <Separator className="my-2" />
+            <nav className="flex flex-col items-stretch gap-1 px-2 text-sm font-medium">
+              {roomsNavItems.map((item) => (
+                <Tooltip key={item.label} delayDuration={0}>
+                  <TooltipTrigger asChild>
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          'flex items-center gap-3 rounded-lg px-3 py-2 text-sidebar-foreground transition-all hover:bg-sidebar-accent hover:text-sidebar-primary',
+                          isActive(item.href) && 'bg-sidebar-accent text-sidebar-primary',
                           isCollapsed && 'justify-center',
                           'cursor-pointer text-xs'
                         )}
