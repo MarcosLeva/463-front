@@ -1,4 +1,5 @@
 
+
 'use client';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
@@ -23,6 +24,7 @@ import {
   ChevronsLeft,
   Menu,
   X,
+  Building,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -86,6 +88,7 @@ export function Sidebar({ isCollapsed }: { isCollapsed: boolean; }) {
 
   const navItems = [
     { href: '/dashboard', icon: Home, label: t('sidebar.users') },
+    { href: '/my-rooms', icon: Building, label: t('sidebar.myRooms') },
     { href: '/profile/edit', icon: FilePen, label: t('sidebar.editProfile'), id: 'edit-profile' },
     { href: '/balance-history', icon: Repeat, label: t('sidebar.latestTransactions') },
     { href: '#', icon: UserPlus, label: t('sidebar.createUser'), id: 'create-user' },

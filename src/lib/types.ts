@@ -86,4 +86,15 @@ export type HierarchyUser = {
   level: number;
   isExpanded?: boolean;
 };
+
+export type Room = {
+    id: number;
+    active: boolean;
+    login: string;
+    currency: string;
+    totalBet: number;
+    totalWin: number;
+    profit: number;
+    rtp: number;
+};
     

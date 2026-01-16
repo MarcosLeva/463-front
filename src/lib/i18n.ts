@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import i18n from 'i18next';
@@ -33,6 +34,7 @@ const resources = {
       },
       "sidebar": {
         "users": "USERS",
+        "myRooms": "MY ROOMS",
         "editProfile": "EDIT",
         "latestTransactions": "LATEST TRANSACTIONS",
         "createUser": "CREATE A USER",
@@ -392,8 +394,6 @@ const resources = {
         "successDesc": "Condition added: {{fieldLabel}} {{operatorLabel}} {{value}}."
       },
       "editUser": {
-        "breadcrumb1": "User panel",
-        "breadcrumb2": "Edit User",
         "title": "Edit user: {{id}}",
         "basics": "Basics",
         "stamp": "Bill stamp",
@@ -412,7 +412,29 @@ const resources = {
         "loading": "Loading user...",
         "errorNotFound": "User not found.",
         "success": "User Updated",
-        "successDesc": "Data for {{name}} has been saved correctly."
+        "successDesc": "Data for {{name}} has been saved correctly.",
+        "breadcrumb1": "User panel",
+        "breadcrumb2": "Edit User"
+      },
+      "myRooms": {
+        "breadcrumb": "My Rooms",
+        "title": "MY ROOMS",
+        "from": "From",
+        "to": "To",
+        "all": "All",
+        "show": "Show",
+        "noData": "No data available.",
+        "table": {
+          "id": "ID",
+          "active": "Active",
+          "login": "Login",
+          "currency": "Currency",
+          "totalBet": "Total Bet",
+          "totalWin": "Total Win",
+          "profit": "Profit",
+          "rtp": "RTP",
+          "total": "Total"
+        }
       }
     }
   },
@@ -443,6 +465,7 @@ const resources = {
       },
       "sidebar": {
         "users": "USUARIOS",
+        "myRooms": "MIS SALAS",
         "editProfile": "EDITAR",
         "latestTransactions": "ÚLTIMAS TRANSACCIONES",
         "createUser": "CREAR UN USUARIO",
@@ -801,8 +824,6 @@ const resources = {
         "successDesc": "Se agregó la condición: {{fieldLabel}} {{operatorLabel}} {{value}}."
       },
       "editUser": {
-        "breadcrumb1": "Panel de usuarios",
-        "breadcrumb2": "Editar Usuario",
         "title": "Editar el usuario: {{id}}",
         "basics": "Básicos",
         "stamp": "Sello del billete",
@@ -821,7 +842,29 @@ const resources = {
         "loading": "Cargando usuario...",
         "errorNotFound": "Usuario no encontrado.",
         "success": "Usuario Actualizado",
-        "successDesc": "Los datos de {{name}} se han guardado correctamente."
+        "successDesc": "Los datos de {{name}} se han guardado correctamente.",
+        "breadcrumb1": "Panel de usuarios",
+        "breadcrumb2": "Editar Usuario"
+      },
+      "myRooms": {
+        "breadcrumb": "Mis Salas",
+        "title": "MIS SALAS",
+        "from": "De",
+        "to": "A",
+        "all": "Todos",
+        "show": "Mostrar",
+        "noData": "No hay datos disponibles.",
+        "table": {
+          "id": "ID",
+          "active": "Activo",
+          "login": "Login",
+          "currency": "Divisa",
+          "totalBet": "Apuesta Total",
+          "totalWin": "Ganancia Total",
+          "profit": "Lucro",
+          "rtp": "RTP",
+          "total": "Total"
+        }
       }
     }
   }

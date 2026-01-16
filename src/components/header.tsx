@@ -1,7 +1,8 @@
 
+
 'use client';
 
-import { Globe, Laptop, PanelLeft, UserCog, UserPlus, BarChartHorizontal, PieChart, History, Shuffle, ChevronsLeft, Search, Menu, X } from 'lucide-react';
+import { Globe, Laptop, PanelLeft, UserCog, UserPlus, BarChartHorizontal, PieChart, History, Shuffle, ChevronsLeft, Search, Menu, X, Building } from 'lucide-react';
 import { Button } from './ui/button';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -46,6 +47,7 @@ export function Header({ isSidebarCollapsed, toggleSidebar }: HeaderProps) {
 
   const navItems = [
       { href: '/dashboard', icon: Home, label: t('sidebar.users') },
+      { href: '/my-rooms', icon: Building, label: t('sidebar.myRooms') },
       { href: '/profile/edit', icon: FilePen, label: t('sidebar.editProfile'), id: 'edit-profile' },
       { href: '/balance-history', icon: Repeat, label: t('sidebar.latestTransactions') },
       { href: '#', icon: UserPlus, label: t('sidebar.createUser'), id: 'create-user' },
@@ -91,6 +93,8 @@ export function Header({ isSidebarCollapsed, toggleSidebar }: HeaderProps) {
               if (item.id === 'create-user') {
                 e.preventDefault();
                 onLinkClick(item.id);
+              } else {
+                onLinkClick();
               }
             }}
             className={cn(

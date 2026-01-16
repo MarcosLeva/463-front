@@ -1,4 +1,4 @@
-import type { User, BalanceHistoryEntry, ProviderStatistic, ChangeLogEntry, IntersectionIpEntry } from "./types";
+import type { User, BalanceHistoryEntry, ProviderStatistic, ChangeLogEntry, IntersectionIpEntry, Room } from "./types";
 import { subDays, subHours, format } from "date-fns";
 
 export const users: User[] = [
@@ -281,4 +281,12 @@ export const intersectionIpData: IntersectionIpEntry[] = [
   { user: 'Grisbet28373', dateTime: '2025-12-29 19:41:53', ip: '131.108.140.122' },
   { user: 'daniel212728', dateTime: '2025-12-29 01:11:17', ip: '131.108.140.98' },
   { user: 'Grisbet28373', dateTime: '2025-12-29 19:44:56', ip: '131.108.140.98' },
+];
+
+export const roomsData: Room[] = [
+    { id: 3208651, active: false, login: "TBSArs2716USD", currency: "USD", totalBet: 0, totalWin: 0, profit: 0, rtp: 0 },
+    { id: 3208656, active: true, login: "TBSArs2716-seamless", currency: "USD", totalBet: 0, totalWin: 0, profit: 0, rtp: 0 },
+    { id: 3209080, active: true, login: "ArsDota", currency: "ARS", totalBet: 0, totalWin: 0, profit: 0, rtp: 0 },
+    { id: 3209081, active: false, login: "AnotherRoom", currency: "USD", totalBet: 100, totalWin: 80, profit: -20, rtp: 80 },
+    { id: 3209082, active: true, login: "TestRoom", currency: "ARS", totalBet: 500, totalWin: 550, profit: 50, rtp: 110 },
 ];
