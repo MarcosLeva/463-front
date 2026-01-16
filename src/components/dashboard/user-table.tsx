@@ -88,6 +88,16 @@ export function UserTable({ users, toggleExpand }: UserTableProps) {
     { key: "avgRtp", label: t('userTable.avgRtp') },
   ];
 
+  const getRowClass = (level: number) => {
+    if (level === 0) return '';
+    const levelClassMap: {[key: number]: string} = {
+      1: 'bg-black/5 dark:bg-white/[.03]',
+      2: 'bg-black/[.07] dark:bg-white/[.05]',
+      3: 'bg-black/[.09] dark:bg-white/[.07]',
+    }
+    return levelClassMap[level] || 'bg-black/[.1] dark:bg-white/[.08]';
+  }
+
   return (
     <>
       <UserManagementDialog
@@ -116,8 +126,8 @@ export function UserTable({ users, toggleExpand }: UserTableProps) {
             <TableBody>
               {users.length > 0 ? (
                 users.map((user) => (
-                  <TableRow key={user.id}>
-                    <TableCell style={{ paddingLeft: `${user.level * 1}rem` }}>
+                  <TableRow key={user.id} className={getRowClass(user.level)}>
+                    <TableCell style={{ paddingLeft: `${user.level * 1.5 + 1}rem` }}>
                        <div 
                         className={cn(
                           "flex items-center gap-2",
