@@ -27,7 +27,6 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-  TableFooter,
 } from '@/components/ui/table';
 import { roomsData } from '@/lib/data';
 import type { Room } from '@/lib/types';
@@ -39,18 +38,13 @@ import { useTranslation } from 'react-i18next';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
 
-const MyRoomsTable = ({ data }: { data: Room[] }) => {
+const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], currencyTotals: Record<string, { totalBet: number; totalWin: number; profit: number; }>, currentPage: number }) => {
   const { t } = useTranslation();
   const formatCurrency = (amount: number) => {
     return amount.toFixed(2);
   };
   
-  const totals = data.reduce((acc, curr) => {
-    acc.totalBet += curr.totalBet;
-    acc.totalWin += curr.totalWin;
-    acc.profit += curr.profit;
-    return acc;
-  }, { totalBet: 0, totalWin: 0, profit: 0 });
+  const sortedCurrencies = useMemo(() => Object.keys(currencyTotals).sort(), [currencyTotals]);
 
   return (
     <div className="w-full overflow-x-auto rounded-md border">
@@ -68,6 +62,21 @@ const MyRoomsTable = ({ data }: { data: Room[] }) => {
           </TableRow>
         </TableHeader>
         <TableBody>
+          {currentPage === 1 && sortedCurrencies.map((currency) => {
+            const total = currencyTotals[currency];
+            const profitColor = total.profit >= 0 ? 'text-green-500' : 'text-red-500';
+            const rtp = total.totalBet > 0 ? (total.totalWin / total.totalBet) * 100 : 0;
+            return (
+              <TableRow key={`total-${currency}`} className="font-bold">
+                <TableCell colSpan={3}></TableCell>
+                <TableCell>{currency}</TableCell>
+                <TableCell className="text-right text-green-500">{formatCurrency(total.totalBet)}</TableCell>
+                <TableCell className="text-right text-green-500">{formatCurrency(total.totalWin)}</TableCell>
+                <TableCell className={`text-right ${profitColor}`}>{formatCurrency(total.profit)}</TableCell>
+                <TableCell className="text-right text-green-500">{rtp.toFixed(2)}%</TableCell>
+              </TableRow>
+            );
+          })}
           {data.length > 0 ? (
             data.map((entry) => (
               <TableRow key={entry.id}>
@@ -109,28 +118,6 @@ const MyRoomsTable = ({ data }: { data: Room[] }) => {
             </TableRow>
           )}
         </TableBody>
-         <TableFooter>
-          <TableRow>
-            <TableCell colSpan={4} className="font-bold">{t('myRooms.table.total')}</TableCell>
-            <TableCell className="text-right font-bold">{formatCurrency(totals.totalBet)}</TableCell>
-            <TableCell className="text-right font-bold">{formatCurrency(totals.totalWin)}</TableCell>
-             <TableCell className="text-right font-bold">
-                 <Badge
-                    variant={totals.profit >= 0 ? "default" : "destructive"}
-                    className={
-                        totals.profit > 0
-                        ? "bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 border-emerald-500/30"
-                        : totals.profit < 0
-                        ? "bg-red-500/20 text-red-700 dark:bg-red-500/10 dark:text-red-400 border-red-500/30"
-                        : ""
-                    }
-                    >
-                    {formatCurrency(totals.profit)}
-                </Badge>
-            </TableCell>
-            <TableCell colSpan={1}></TableCell>
-          </TableRow>
-        </TableFooter>
       </Table>
     </div>
   );
@@ -181,6 +168,19 @@ export default function MyRoomsPage() {
   const filteredData = useMemo(() => {
     return roomsData;
   }, []);
+  
+  const currencyTotals = useMemo(() => {
+    return filteredData.reduce((acc, room) => {
+      const currency = room.currency;
+      if (!acc[currency]) {
+        acc[currency] = { totalBet: 0, totalWin: 0, profit: 0 };
+      }
+      acc[currency].totalBet += room.totalBet;
+      acc[currency].totalWin += room.totalWin;
+      acc[currency].profit += room.profit;
+      return acc;
+    }, {} as Record<string, { totalBet: number; totalWin: number; profit: number; }>);
+  }, [filteredData]);
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
@@ -278,7 +278,7 @@ export default function MyRoomsPage() {
           {loading ? (
              <TableSkeleton columns={8} rows={itemsPerPage} />
           ) : (
-            <MyRoomsTable data={paginatedData} />
+            <MyRoomsTable data={paginatedData} currencyTotals={currencyTotals} currentPage={currentPage} />
           )}
         </CardContent>
         <CardFooter>
