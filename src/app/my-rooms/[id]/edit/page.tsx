@@ -200,17 +200,17 @@ export default function EditRoomPage() {
                         </Select>
                     </FormRow>
                     <FormRow label={t('editRoom.hallKey')}>
-                        <div className="flex items-center gap-2 max-w-sm">
+                        <div className="flex items-center gap-2">
                             <Input id="hallKey" value={formData.hallKey} readOnly />
                             <Button variant="outline" size="icon" type="button"><Copy className="h-4 w-4" /></Button>
                             <Button variant="outline" size="icon" type="button"><RefreshCw className="h-4 w-4" /></Button>
+                            <Button type="button" className="bg-purple-600 hover:bg-purple-700">{t('editRoom.testApi')}</Button>
                         </div>
                     </FormRow>
                 </div>
             </CardContent>
-            <CardFooter className="mt-6 flex justify-between border-t pt-6">
+            <CardFooter className="mt-6 flex justify-start border-t pt-6">
                 <Button type="submit" className="bg-green-600 hover:bg-green-700">{t('editRoom.save')}</Button>
-                <Button type="button" className="bg-purple-600 hover:bg-purple-700">{t('editRoom.testApi')}</Button>
             </CardFooter>
         </Card>
       </form>
