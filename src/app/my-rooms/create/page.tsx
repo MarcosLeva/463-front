@@ -146,7 +146,7 @@ export default function CreateRoomPage() {
                  </div>
 
             </CardContent>
-            <CardFooter className="mt-6 flex justify-start gap-2 border-t pt-6">
+            <CardFooter className="mt-6 flex justify-end gap-2 border-t pt-6">
                 <Button type="submit" disabled={isSubmitting} className="bg-green-600 hover:bg-green-700">
                     {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     {isSubmitting ? t('createRoom.creating') : t('createRoom.create')}
