@@ -6,7 +6,7 @@ import { Globe, Laptop, PanelLeft, UserCog, UserPlus, BarChartHorizontal, PieCha
 import { Button } from './ui/button';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from './ui/sheet';
 import Link from 'next/link';
 import { ThemeToggle } from './theme-toggle';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -170,11 +170,15 @@ export function Header({ isSidebarCollapsed, toggleSidebar }: HeaderProps) {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="sm:max-w-xs bg-sidebar p-0 flex flex-col">
-                <div className="flex h-16 items-center justify-center border-b px-6">
-                  <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
-                    <Image src="/logo.png" alt="463 Logo" width={150} height={37} />
-                  </Link>
-                </div>
+                <SheetHeader className="border-b p-0 space-y-0 text-left">
+                    <SheetTitle className="sr-only">{t('header.toggleMenu')}</SheetTitle>
+                    <SheetDescription className="sr-only">{t('header.menuDescription')}</SheetDescription>
+                    <div className="flex h-16 items-center justify-center px-6">
+                        <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
+                        <Image src="/logo.png" alt="463 Logo" width={150} height={37} />
+                        </Link>
+                    </div>
+                </SheetHeader>
                 <div className="py-4 space-y-4 flex-1 flex flex-col">
                   <div className="relative px-4">
                     <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />

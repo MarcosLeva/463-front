@@ -30,7 +30,8 @@ const resources = {
         "searchPlaceholder": "User search",
         "toggleSidebar": "Toggle sidebar",
         "toggleMenu": "Toggle Menu",
-        "logout": "LOGOUT"
+        "logout": "LOGOUT",
+        "menuDescription": "Main menu for site navigation"
       },
       "sidebar": {
         "users": "USERS",
@@ -129,19 +130,20 @@ const resources = {
             "description": "Could not get your profile data."
         },
         "errorPasswordMismatch": {
-            "title": "Error",
-            "description": "Passwords do not match."
+            "title": "Passwords do not match",
+            "description": "Please ensure the new password and confirmation match."
         },
         "errorOldPassword": {
-            "title": "Error",
-            "description": "You must enter your old password to change it."
+            "title": "Old Password Required",
+            "description": "You must enter your old password to set a new one."
         },
         "errorNoChanges": {
-            "title": "No changes",
-            "description": "You have not modified any data."
+            "title": "No Changes Detected",
+            "description": "You haven't made any changes to save."
         },
         "errorSaving": {
-            "title": "Error saving"
+            "title": "Error Saving Profile",
+            "description": "Could not save your changes. Please try again."
         }
       },
       "datePicker": {
@@ -488,7 +490,8 @@ const resources = {
         "searchPlaceholder": "Búsqueda del usuario",
         "toggleSidebar": "Alternar barra lateral",
         "toggleMenu": "Alternar Menú",
-        "logout": "SALIR"
+        "logout": "SALIR",
+        "menuDescription": "Menú principal para la navegación del sitio"
       },
       "sidebar": {
         "users": "USUARIOS",
@@ -586,19 +589,20 @@ const resources = {
             "description": "No se pudieron obtener los datos de tu perfil."
         },
         "errorPasswordMismatch": {
-            "title": "Error",
-            "description": "Las contraseñas no coinciden."
+            "title": "Las contraseñas no coinciden",
+            "description": "Asegúrese de que la nueva contraseña y la confirmación coincidan."
         },
         "errorOldPassword": {
-            "title": "Error",
-            "description": "Debes ingresar tu contraseña anterior para cambiarla."
+            "title": "Se requiere contraseña anterior",
+            "description": "Debes ingresar tu contraseña anterior para establecer una nueva."
         },
         "errorNoChanges": {
-            "title": "Sin cambios",
-            "description": "No has modificado ningún dato."
+            "title": "No se detectaron cambios",
+            "description": "No has realizado ningún cambio para guardar."
         },
         "errorSaving": {
-            "title": "Error al guardar"
+            "title": "Error al guardar el perfil",
+            "description": "No se pudieron guardar los cambios. Inténtalo de nuevo."
         }
       },
       "datePicker": {
