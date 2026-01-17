@@ -30,7 +30,7 @@ import type { Room } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
 
 const FormRow = ({ label, children }: { label: string; children: React.ReactNode }) => (
-    <div className="grid grid-cols-3 items-center gap-4 border-b py-3">
+    <div className="grid grid-cols-3 items-center gap-4 border-b py-3 px-6">
         <Label className="text-right text-sm">{label}</Label>
         <div className="col-span-2">{children}</div>
     </div>

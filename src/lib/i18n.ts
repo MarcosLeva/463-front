@@ -491,6 +491,23 @@ const resources = {
             "action_details": "Details"
         }
       },
+       "gameStatistics": {
+        "noData": "No data available.",
+        "table": {
+          "game": "Game",
+          "totalBet": "Total Bet",
+          "totalWin": "Total Win",
+          "winLose": "WinLose",
+          "rtp": "RTP"
+        },
+        "filters": {
+          "from": "From",
+          "to": "To",
+          "period": "Period",
+          "today": "Today",
+          "show": "Show"
+        }
+      },
       "editRoom": {
         "breadcrumb": "Edit Room: {{name}}",
         "title": "Edit Hall",
@@ -999,6 +1016,23 @@ const resources = {
             "fg": "FG",
             "actions": "Acciones",
             "action_details": "Detalles"
+        }
+      },
+      "gameStatistics": {
+        "noData": "No hay datos disponibles.",
+        "table": {
+          "game": "Juego",
+          "totalBet": "Apuesta Total",
+          "totalWin": "Ganancia Total",
+          "winLose": "Ganancia/Pérdida",
+          "rtp": "RTP"
+        },
+        "filters": {
+          "from": "Desde",
+          "to": "Hasta",
+          "period": "Período",
+          "today": "Hoy",
+          "show": "Mostrar"
         }
       },
       "editRoom": {
