@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
   Card,
@@ -25,9 +25,9 @@ import Link from 'next/link';
 import { Home, ChevronRight, RefreshCw, Copy } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useToast } from '@/hooks/use-toast';
-import { roomsData } from '@/lib/data';
 import type { Room } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useAuthStore } from '@/store/auth';
 
 const FormRow = ({ label, children }: { label: string; children: React.ReactNode }) => (
     <div className="grid grid-cols-3 items-center gap-4 border-b py-3 px-6">
@@ -49,6 +49,7 @@ export default function EditRoomPage() {
   const { id } = params;
   const router = useRouter();
   const { toast } = useToast();
+  const { accessToken } = useAuthStore();
   
   const [loading, setLoading] = useState(true);
   const [room, setRoom] = useState<Room | null>(null);
@@ -65,24 +66,58 @@ export default function EditRoomPage() {
     hallKey: '9jSCHtXwSs'
   });
 
-  useEffect(() => {
-    const foundRoom = roomsData.find(r => r.id.toString() === id);
-    if (foundRoom) {
-      setRoom(foundRoom);
-      setFormData(prev => ({...prev, active: foundRoom.active}));
-    } else {
+  const fetchRoom = useCallback(async () => {
+    if (!id || !accessToken) {
+        setLoading(false);
+        return;
+    }
+    setLoading(true);
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/halls/${id}`, {
+            headers: { 'Authorization': `Bearer ${accessToken}` },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch room data');
+        }
+
+        const data = await response.json();
+        
+        const roomData: Room = {
+            id: data.id,
+            login: data.name,
+            active: data.status === 'ACTIVE',
+            currency: data.currency,
+            balance: parseFloat(data.balance),
+            rtp: data.rtpBps / 100,
+            totalBet: 0, // Not available from this endpoint
+            totalWin: 0, // Not available
+            profit: 0, // Not available
+            terminals: data.hallGames?.length || 0,
+        };
+
+        setRoom(roomData);
+        setFormData(prev => ({
+            ...prev,
+            active: roomData.active,
+            rtp: String(roomData.rtp),
+        }));
+
+    } catch (error) {
         toast({
             title: "Error",
-            description: "Room not found",
-            variant: "destructive"
-        })
+            description: "Could not load room data.",
+            variant: 'destructive',
+        });
         router.push('/my-rooms');
+    } finally {
+        setLoading(false);
     }
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [id, router, toast]);
+  }, [id, accessToken, router, toast]);
+
+  useEffect(() => {
+    fetchRoom();
+  }, [fetchRoom]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -210,6 +245,7 @@ export default function EditRoomPage() {
                             <SelectTrigger className='max-w-sm'><SelectValue /></SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="92">92</SelectItem>
+                                <SelectItem value="97">97</SelectItem>
                             </SelectContent>
                         </Select>
                     </FormRow>
