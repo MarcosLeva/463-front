@@ -490,6 +490,23 @@ const resources = {
             "actions": "Actions",
             "action_details": "Details"
         }
+      },
+      "editRoom": {
+        "breadcrumb": "Edit Room: {{name}}",
+        "title": "Edit Hall",
+        "login": "Login",
+        "active": "Active",
+        "currency": "Currency",
+        "demoBalance": "Demo Balance",
+        "egtJackpots": "EGT Jackpots",
+        "minTotalBet": "Min Total Bet",
+        "maxTotalBet": "Max Total Bet",
+        "sportMinBet": "Sport Min Bet",
+        "sportMaxBet": "Sport Max Bet",
+        "ratio": "Ratio",
+        "hallKey": "Hall Key",
+        "save": "Save",
+        "testApi": "Test API"
       }
     }
   },
@@ -975,6 +992,23 @@ const resources = {
             "actions": "Acciones",
             "action_details": "Detalles"
         }
+      },
+      "editRoom": {
+        "breadcrumb": "Editar Sala: {{name}}",
+        "title": "Editar Sala",
+        "login": "Login",
+        "active": "Activo",
+        "currency": "Divisa",
+        "demoBalance": "Balance de demostración",
+        "egtJackpots": "EGT Jackpots",
+        "minTotalBet": "Apuesta total mínima",
+        "maxTotalBet": "Apuesta total máxima",
+        "sportMinBet": "Apuesta mínima deportiva",
+        "sportMaxBet": "Apuesta máxima deportiva",
+        "ratio": "Proporción",
+        "hallKey": "Clave de sala",
+        "save": "Guardar",
+        "testApi": "Probar API"
       }
     }
   }

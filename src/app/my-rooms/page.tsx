@@ -94,7 +94,7 @@ const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], cur
                 </TableCell>
                 <TableCell>
                     <div className='flex items-center gap-2'>
-                        <Link href="#" className="text-primary hover:underline">{entry.login}</Link>
+                        <Link href={`/my-rooms/${entry.id}/edit`} className="text-primary hover:underline">{entry.login}</Link>
                         <Link href={`/my-rooms/${entry.id}`}>
                           <Gamepad2 className='h-4 w-4 text-muted-foreground cursor-pointer hover:text-primary' />
                         </Link>
