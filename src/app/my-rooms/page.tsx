@@ -38,8 +38,9 @@ import { useTranslation } from 'react-i18next';
 import { Badge } from '@/components/ui/badge';
 import { useAuthStore } from '@/store/auth';
 import { useToast } from '@/hooks/use-toast';
+import { Switch } from '@/components/ui/switch';
 
-const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], currencyTotals: Record<string, { totalBet: number; totalWin: number; profit: number; }>, currentPage: number }) => {
+const MyRoomsTable = ({ data, currencyTotals, currentPage, onStatusChange }: { data: Room[], currencyTotals: Record<string, { totalBet: number; totalWin: number; profit: number; }>, currentPage: number, onStatusChange: (roomId: string, newStatus: boolean) => void }) => {
   const { t } = useTranslation();
   const formatCurrency = (amount: number) => {
     return amount.toFixed(2);
@@ -53,7 +54,7 @@ const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], cur
         <TableHeader className="bg-[#23303a]">
           <TableRow>
             <TableHead>{t('myRooms.table.id')}</TableHead>
-            <TableHead></TableHead>
+            <TableHead>{t('myRooms.table.active')}</TableHead>
             <TableHead>{t('myRooms.table.login')}</TableHead>
             <TableHead></TableHead>
             <TableHead>{t('myRooms.table.currency')}</TableHead>
@@ -84,6 +85,10 @@ const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], cur
               <TableRow key={entry.id}>
                 <TableCell>{entry.id}</TableCell>
                 <TableCell>
+                  <Switch
+                    checked={entry.active}
+                    onCheckedChange={(checked) => onStatusChange(entry.id, checked)}
+                  />
                 </TableCell>
                 <TableCell>
                     <div className='flex items-center gap-2'>
@@ -208,6 +213,44 @@ export default function MyRoomsPage() {
 
     setter(formattedValue);
   };
+  
+  const handleStatusChange = async (roomId: string, newStatus: boolean) => {
+    const originalRooms = [...rooms];
+    
+    setRooms(prevRooms => 
+      prevRooms.map(room => 
+        room.id === roomId ? { ...room, active: newStatus } : room
+      )
+    );
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/halls/${roomId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({ status: newStatus ? 'ACTIVE' : 'INACTIVE' }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update room status');
+      }
+
+      toast({
+        title: "Room status updated",
+        description: `Room ${roomId} has been ${newStatus ? 'activated' : 'deactivated'}.`
+      });
+
+    } catch (error) {
+      setRooms(originalRooms);
+      toast({
+        title: "Error",
+        description: "Could not update room status.",
+        variant: "destructive"
+      });
+    }
+  };
 
   const filteredData = useMemo(() => {
     return rooms;
@@ -324,7 +367,7 @@ export default function MyRoomsPage() {
           {loading ? (
              <TableSkeleton columns={9} rows={itemsPerPage} />
           ) : (
-            <MyRoomsTable data={paginatedData} currencyTotals={currencyTotals} currentPage={currentPage} />
+            <MyRoomsTable data={paginatedData} currencyTotals={currencyTotals} currentPage={currentPage} onStatusChange={handleStatusChange} />
           )}
         </CardContent>
         <CardFooter>
