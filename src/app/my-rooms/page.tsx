@@ -83,10 +83,7 @@ const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], cur
               <TableRow key={entry.id}>
                 <TableCell>{entry.id}</TableCell>
                 <TableCell>
-                    <div className="flex justify-center gap-2">
-                        <Checkbox checked={entry.active} />
-                        <Checkbox />
-                    </div>
+                    <Checkbox checked={entry.active} />
                 </TableCell>
                 <TableCell>
                     <div className='flex items-center gap-2'>
@@ -105,23 +102,12 @@ const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], cur
                   </Link>
                 </TableCell>
                 <TableCell>{entry.currency}</TableCell>
-                <TableCell className="text-right">{formatCurrency(entry.totalBet)}</TableCell>
-                <TableCell className="text-right">{formatCurrency(entry.totalWin)}</TableCell>
-                <TableCell className="text-right">
-                    <Badge
-                        variant={entry.profit >= 0 ? "default" : "destructive"}
-                        className={
-                          entry.profit > 0
-                            ? "bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 border-emerald-500/30"
-                            : entry.profit < 0
-                            ? "bg-red-500/20 text-red-700 dark:bg-red-500/10 dark:text-red-400 border-red-500/30"
-                            : ""
-                        }
-                      >
-                        {formatCurrency(entry.profit)}
-                    </Badge>
+                <TableCell className="text-right text-green-500">{formatCurrency(entry.totalBet)}</TableCell>
+                <TableCell className="text-right text-green-500">{formatCurrency(entry.totalWin)}</TableCell>
+                <TableCell className={`text-right ${entry.profit >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                  {formatCurrency(entry.profit)}
                 </TableCell>
-                <TableCell className="text-right">{entry.rtp.toFixed(2)}%</TableCell>
+                <TableCell className="text-right text-green-500">{entry.rtp.toFixed(2)}%</TableCell>
               </TableRow>
             ))
           ) : (
