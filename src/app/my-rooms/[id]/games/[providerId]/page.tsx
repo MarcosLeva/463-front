@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -18,11 +17,11 @@ import { useToast } from '@/hooks/use-toast';
 import { roomsData, gameProvidersData, gamesByProvider } from '@/lib/data';
 import type { Room, GameProvider, Game } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+
 
 const ProviderGamesTable = ({ games }: { games: Game[] }) => {
     const { t } = useTranslation();
-    const [gameStatus, setGameStatus] = useState<Record<number, boolean>>(() => 
+    const [gameStatus, setGameStatus] = useState<Record<number, boolean>>(() =>
         games.reduce((acc, game) => {
             acc[game.id] = game.active;
             return acc;
@@ -33,39 +32,35 @@ const ProviderGamesTable = ({ games }: { games: Game[] }) => {
         setGameStatus(prev => ({...prev, [gameId]: !prev[gameId]}));
     }
 
+    const GameItem = ({ game }: { game: Game }) => {
+        const isOn = gameStatus[game.id];
+        return (
+             <div className="grid grid-cols-[auto_1fr_auto] items-center gap-x-4 border p-2 rounded-md">
+                <span className="text-sm font-medium text-muted-foreground">{game.id}</span>
+                <span className="text-sm truncate">{game.name}</span>
+                <div className="flex items-center justify-end gap-0">
+                    <Button
+                        size="sm"
+                        className={`px-3 h-7 rounded-r-none ${isOn ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-700'}`}
+                        onClick={() => toggleGameStatus(game.id)}
+                    >
+                        ON
+                    </Button>
+                    <Button
+                        size="sm"
+                        className={`px-3 h-7 rounded-l-none ${!isOn ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-700'}`}
+                        onClick={() => toggleGameStatus(game.id)}
+                    >
+                        OFF
+                    </Button>
+                </div>
+            </div>
+        );
+    };
+
     return (
-        <div className="w-full rounded-md border">
-            <Table>
-                <TableBody>
-                    {games.map(game => {
-                        const isOn = gameStatus[game.id];
-                        return (
-                            <TableRow key={game.id}>
-                                <TableCell className="w-[80px]">{game.id}</TableCell>
-                                <TableCell>{game.name}</TableCell>
-                                <TableCell className="text-right w-[120px]">
-                                    <div className="flex items-center justify-end gap-0">
-                                        <Button
-                                            size="sm"
-                                            className={`px-3 h-7 rounded-r-none ${isOn ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-700'}`}
-                                            onClick={() => toggleGameStatus(game.id)}
-                                        >
-                                            ON
-                                        </Button>
-                                        <Button
-                                            size="sm"
-                                            className={`px-3 h-7 rounded-l-none ${!isOn ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-700'}`}
-                                            onClick={() => toggleGameStatus(game.id)}
-                                        >
-                                            OFF
-                                        </Button>
-                                    </div>
-                                </TableCell>
-                            </TableRow>
-                        )
-                    })}
-                </TableBody>
-            </Table>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            {games.map(game => <GameItem key={game.id} game={game} />)}
         </div>
     );
 }
@@ -174,7 +169,7 @@ export default function ProviderGamesPage() {
                         <p className='text-center text-muted-foreground py-10'>{t('hallDetails.noData')}</p>
                     )}
                 </CardContent>
-                <CardFooter className="mt-6 flex justify-start border-t pt-6">
+                <CardFooter className="mt-6 flex justify-center border-t pt-6">
                     <Button onClick={handleSave} className="bg-green-600 hover:bg-green-700">{t('editRoom.save')}</Button>
                 </CardFooter>
             </Card>
