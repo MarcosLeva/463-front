@@ -149,7 +149,7 @@ export default function MyRoomsPage() {
     }
     setLoading(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/halls/${user.id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/halls/owner/${user.id}`, {
         headers: {
           'Authorization': `Bearer ${accessToken}`,
         },
