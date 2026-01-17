@@ -105,6 +105,36 @@ export default function EditRoomPage() {
         description: `Changes to room ${room?.login} have been saved.`
     })
   }
+  
+  const handleCopyKey = () => {
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(formData.hallKey).then(() => {
+            toast({
+                title: t('editRoom.hallKeyCopied.title'),
+                description: t('editRoom.hallKeyCopied.description'),
+            });
+        });
+    }
+  };
+
+  const generateRandomKey = (length = 10) => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  };
+
+  const handleRefreshKey = () => {
+    const newKey = generateRandomKey();
+    setFormData(prev => ({ ...prev, hallKey: newKey }));
+    toast({
+        title: t('editRoom.newHallKey.title'),
+        description: t('editRoom.newHallKey.description'),
+    });
+  };
 
   if (loading || !room) {
       return (
@@ -202,9 +232,9 @@ export default function EditRoomPage() {
                     <FormRow label={t('editRoom.hallKey')}>
                         <div className="flex items-center gap-2">
                             <Input id="hallKey" value={formData.hallKey} readOnly />
-                            <Button variant="outline" size="icon" type="button"><Copy className="h-4 w-4" /></Button>
-                            <Button variant="outline" size="icon" type="button"><RefreshCw className="h-4 w-4" /></Button>
-                            <Button type="button" className="bg-purple-600 hover:bg-purple-700 ml-2">{t('editRoom.testApi')}</Button>
+                            <Button variant="outline" size="icon" type="button" onClick={handleCopyKey}><Copy className="h-4 w-4" /></Button>
+                            <Button variant="outline" size="icon" type="button" onClick={handleRefreshKey}><RefreshCw className="h-4 w-4" /></Button>
+                            <Button type="button" className="bg-purple-600 hover:bg-purple-700">{t('editRoom.testApi')}</Button>
                         </div>
                     </FormRow>
                 </div>

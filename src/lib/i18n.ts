@@ -506,7 +506,15 @@ const resources = {
         "ratio": "Ratio",
         "hallKey": "Hall Key",
         "save": "Save",
-        "testApi": "Test API"
+        "testApi": "Test API",
+        "hallKeyCopied": {
+            "title": "Copied",
+            "description": "Hall key has been copied to clipboard."
+        },
+        "newHallKey": {
+            "title": "New Key Generated",
+            "description": "A new hall key has been generated."
+        }
       }
     }
   },
@@ -1008,7 +1016,15 @@ const resources = {
         "ratio": "Proporción",
         "hallKey": "Clave de sala",
         "save": "Guardar",
-        "testApi": "Probar API"
+        "testApi": "Probar API",
+        "hallKeyCopied": {
+            "title": "Copiado",
+            "description": "La clave de la sala ha sido copiada al portapapeles."
+        },
+        "newHallKey": {
+            "title": "Nueva Clave Generada",
+            "description": "Se ha generado una nueva clave de sala."
+        }
       }
     }
   }
