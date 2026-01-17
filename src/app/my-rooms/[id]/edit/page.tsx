@@ -204,7 +204,7 @@ export default function EditRoomPage() {
                             <Input id="hallKey" value={formData.hallKey} readOnly />
                             <Button variant="outline" size="icon" type="button"><Copy className="h-4 w-4" /></Button>
                             <Button variant="outline" size="icon" type="button"><RefreshCw className="h-4 w-4" /></Button>
-                            <Button type="button" className="bg-purple-600 hover:bg-purple-700">{t('editRoom.testApi')}</Button>
+                            <Button type="button" className="bg-purple-600 hover:bg-purple-700 ml-2">{t('editRoom.testApi')}</Button>
                         </div>
                     </FormRow>
                 </div>
