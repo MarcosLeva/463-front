@@ -19,6 +19,18 @@ import type { Room, GameProvider, Game } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Switch } from '@/components/ui/switch';
 
+const GameItem = ({ game, isChecked, onToggle }: { game: Game, isChecked: boolean, onToggle: (checked: boolean) => void }) => {
+    return (
+         <div className="grid grid-cols-[auto_1fr_auto] items-center gap-x-4 border p-2 rounded-md">
+            <span className="text-sm font-medium text-muted-foreground">{game.id}</span>
+            <span className="text-sm truncate">{game.name}</span>
+            <Switch 
+                checked={isChecked}
+                onCheckedChange={onToggle}
+            />
+        </div>
+    );
+};
 
 const ProviderGamesTable = ({ games }: { games: Game[] }) => {
     const { t } = useTranslation();
@@ -33,23 +45,16 @@ const ProviderGamesTable = ({ games }: { games: Game[] }) => {
         setGameStatus(prev => ({...prev, [gameId]: checked}));
     }
 
-    const GameItem = ({ game }: { game: Game }) => {
-        const isOn = gameStatus[game.id];
-        return (
-             <div className="grid grid-cols-[auto_1fr_auto] items-center gap-x-4 border p-2 rounded-md">
-                <span className="text-sm font-medium text-muted-foreground">{game.id}</span>
-                <span className="text-sm truncate">{game.name}</span>
-                <Switch 
-                    checked={isOn}
-                    onCheckedChange={(checked) => toggleGameStatus(game.id, checked)}
-                />
-            </div>
-        );
-    };
-
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-            {games.map(game => <GameItem key={game.id} game={game} />)}
+            {games.map(game => (
+                <GameItem 
+                    key={game.id} 
+                    game={game} 
+                    isChecked={gameStatus[game.id]} 
+                    onToggle={(checked) => toggleGameStatus(game.id, checked)}
+                />
+            ))}
         </div>
     );
 }
