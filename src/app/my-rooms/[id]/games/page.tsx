@@ -22,9 +22,11 @@ import { useAuthStore } from '@/store/auth';
 
 
 const GameItem = ({ game, isChecked, onToggle }: { game: Game, isChecked: boolean, onToggle: (checked: boolean) => void }) => {
+    const { t } = useTranslation();
     return (
-         <div className="grid grid-cols-[1fr_auto] items-center gap-x-4 border p-2 rounded-md bg-background">
+         <div className="grid grid-cols-[1fr_auto_auto] items-center gap-x-2 border p-2 rounded-md bg-background">
             <span className="text-sm truncate">{game.name}</span>
+            <Button variant="outline" size="sm" className="h-8">{t('editRoom.games')}</Button>
             <Switch
                 checked={isChecked}
                 onCheckedChange={onToggle}
