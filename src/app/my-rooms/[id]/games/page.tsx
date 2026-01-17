@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -15,7 +14,6 @@ import Link from 'next/link';
 import { Home, ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useToast } from '@/hooks/use-toast';
-import { roomsData } from '@/lib/data';
 import type { Room, GameProvider, Game } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
@@ -140,54 +138,68 @@ export default function EditRoomGamesPage() {
   const [gameProviders, setGameProviders] = useState<GameProvider[]>([]);
   const [gameStatus, setGameStatus] = useState<Record<string, Record<string, boolean>>>({});
 
-  const fetchGameProviders = useCallback(async () => {
-    if (!accessToken) return;
+  const fetchData = useCallback(async () => {
+    if (!accessToken || !id) {
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     try {
-        const response = await fetch(`https://admin-service-258390046996.us-central1.run.app/halls/games/by-provider`, {
-            headers: { 'Authorization': `Bearer ${accessToken}` },
-        });
+      const [roomResponse, providersResponse] = await Promise.all([
+        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/halls/${id}`, {
+          headers: { 'Authorization': `Bearer ${accessToken}` },
+        }),
+        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/halls/games/by-provider`, {
+          headers: { 'Authorization': `Bearer ${accessToken}` },
+        })
+      ]);
 
-        if (!response.ok) throw new Error('Failed to fetch game providers');
+      if (!roomResponse.ok) throw new Error('Failed to fetch room data');
+      if (!providersResponse.ok) throw new Error('Failed to fetch game providers');
 
-        const data = await response.json();
-        const transformedData: GameProvider[] = data.map((provider: any) => ({
-            id: provider.id,
-            name: provider.name,
-            games: provider.games.map((game: any) => ({
-                id: game.id,
-                name: game.title,
-                active: game.enabled,
-            })),
-        }));
-        setGameProviders(transformedData);
+      const roomData = await roomResponse.json();
+      const providersData = await providersResponse.json();
+      
+      const transformedRoom: Room = {
+        id: roomData.id,
+        login: roomData.name,
+        active: roomData.status === 'ACTIVE',
+        currency: roomData.currency,
+        balance: parseFloat(roomData.balance),
+        rtp: roomData.rtpBps / 100,
+        totalBet: 0,
+        totalWin: 0,
+        profit: 0,
+        terminals: roomData.hallGames?.length || 0,
+      };
+      setRoom(transformedRoom);
 
-    } catch (error) {
-        toast({
-            title: "Error",
-            description: "Could not load game providers data.",
-            variant: 'destructive',
-        });
+      const transformedProviders: GameProvider[] = providersData.map((provider: any) => ({
+        id: provider.id,
+        name: provider.name,
+        games: provider.games.map((game: any) => ({
+          id: game.id,
+          name: game.title,
+          active: game.enabled,
+        })),
+      }));
+      setGameProviders(transformedProviders);
+
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Could not load data.",
+        variant: 'destructive',
+      });
+      router.push('/my-rooms');
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-  }, [accessToken, toast]);
+  }, [accessToken, id, toast, router]);
 
   useEffect(() => {
-    const foundRoom = roomsData.find(r => r.id.toString() === id);
-    if (foundRoom) {
-      setRoom(foundRoom);
-    } else {
-        toast({
-            title: "Error",
-            description: "Room not found",
-            variant: "destructive"
-        })
-        router.push('/my-rooms');
-        return;
-    }
-    fetchGameProviders();
-  }, [id, router, toast, fetchGameProviders]);
+    fetchData();
+  }, [fetchData]);
 
 
   const handleGameStatusChange = (providerId: string, gameId: string, checked: boolean) => {
