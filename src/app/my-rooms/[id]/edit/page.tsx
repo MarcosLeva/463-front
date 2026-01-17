@@ -183,8 +183,10 @@ export default function EditRoomPage() {
             <CardHeader className="flex-row items-center justify-between">
                 <CardTitle>{t('editRoom.title')}</CardTitle>
                 <div className="flex gap-2">
-                    <Button variant="outline" className="bg-green-600 text-white hover:bg-green-700 hover:text-white">Users</Button>
-                    <Button variant="outline" className="bg-purple-600 text-white hover:bg-purple-700 hover:text-white">Games</Button>
+                    <Button asChild variant="outline" className="bg-green-600 text-white hover:bg-green-700 hover:text-white">
+                        <Link href={`/my-rooms/${id}/users`}>{t('editRoom.users')}</Link>
+                    </Button>
+                    <Button variant="outline" className="bg-purple-600 text-white hover:bg-purple-700 hover:text-white">{t('editRoom.games')}</Button>
                 </div>
             </CardHeader>
             <CardContent className="p-0">
@@ -234,7 +236,7 @@ export default function EditRoomPage() {
                             <Input id="hallKey" value={formData.hallKey} readOnly />
                             <Button variant="outline" size="icon" type="button" onClick={handleCopyKey}><Copy className="h-4 w-4" /></Button>
                             <Button variant="outline" size="icon" type="button" onClick={handleRefreshKey}><RefreshCw className="h-4 w-4" /></Button>
-                            <Button type="button" className="bg-purple-600 hover:bg-purple-700">{t('editRoom.testApi')}</Button>
+                            <Button type="button" className="bg-purple-600 hover:bg-purple-700 ml-2">{t('editRoom.testApi')}</Button>
                         </div>
                     </FormRow>
                 </div>

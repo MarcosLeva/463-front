@@ -531,7 +531,9 @@ const resources = {
         "newHallKey": {
             "title": "New Key Generated",
             "description": "A new hall key has been generated."
-        }
+        },
+        "users": "Users",
+        "games": "Games"
       }
     }
   },
@@ -1058,7 +1060,9 @@ const resources = {
         "newHallKey": {
             "title": "Nueva Clave Generada",
             "description": "Se ha generado una nueva clave de sala."
-        }
+        },
+        "users": "Usuarios",
+        "games": "Juegos"
       }
     }
   }
