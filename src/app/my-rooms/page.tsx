@@ -35,7 +35,6 @@ import { PaginationControls } from '@/components/dashboard/pagination-controls';
 import Link from 'next/link';
 import { TableSkeleton } from '@/components/dashboard/table-skeleton';
 import { useTranslation } from 'react-i18next';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
 
 const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], currencyTotals: Record<string, { totalBet: number; totalWin: number; profit: number; }>, currentPage: number }) => {
@@ -74,7 +73,7 @@ const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], cur
                 <TableCell className="text-right text-green-500">{formatCurrency(total.totalBet)}</TableCell>
                 <TableCell className="text-right text-green-500">{formatCurrency(total.totalWin)}</TableCell>
                 <TableCell className={`text-right ${profitColor}`}>{formatCurrency(total.profit)}</TableCell>
-                <TableCell className="text-right text-green-500">{rtp.toFixed(2)}%</TableCell>
+                <TableCell className="text-right">{rtp.toFixed(2)}%</TableCell>
               </TableRow>
             );
           })}
@@ -83,7 +82,6 @@ const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], cur
               <TableRow key={entry.id}>
                 <TableCell>{entry.id}</TableCell>
                 <TableCell>
-                    <Checkbox checked={entry.active} />
                 </TableCell>
                 <TableCell>
                     <div className='flex items-center gap-2'>
@@ -102,12 +100,12 @@ const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], cur
                   </Link>
                 </TableCell>
                 <TableCell>{entry.currency}</TableCell>
-                <TableCell className="text-right text-green-500">{formatCurrency(entry.totalBet)}</TableCell>
-                <TableCell className="text-right text-green-500">{formatCurrency(entry.totalWin)}</TableCell>
+                <TableCell className="text-right">{formatCurrency(entry.totalBet)}</TableCell>
+                <TableCell className="text-right">{formatCurrency(entry.totalWin)}</TableCell>
                 <TableCell className={`text-right ${entry.profit >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                   {formatCurrency(entry.profit)}
                 </TableCell>
-                <TableCell className="text-right text-green-500">{entry.rtp.toFixed(2)}%</TableCell>
+                <TableCell className="text-right">{entry.rtp.toFixed(2)}%</TableCell>
               </TableRow>
             ))
           ) : (
