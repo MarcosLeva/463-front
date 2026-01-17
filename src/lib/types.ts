@@ -100,15 +100,15 @@ export type Room = {
     balance: number;
 };
 
-export type GameProvider = {
-  name: string;
-  value: string | null;
-  actions: ('Show' | 'Config')[];
-};
-
 export type Game = {
-    id: number;
+    id: string;
     name: string;
     active: boolean;
+};
+
+export type GameProvider = {
+  id: string;
+  name: string;
+  games: Game[];
 };
     

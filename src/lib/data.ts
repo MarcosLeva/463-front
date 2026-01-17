@@ -1,4 +1,4 @@
-import type { User, BalanceHistoryEntry, ProviderStatistic, ChangeLogEntry, IntersectionIpEntry, Room, GameProvider, Game } from "./types";
+import type { User, BalanceHistoryEntry, ProviderStatistic, ChangeLogEntry, IntersectionIpEntry, Room, Game, GameProvider } from "./types";
 import { subDays, subHours, format } from "date-fns";
 
 export const users: User[] = [
@@ -291,51 +291,5 @@ export const roomsData: Room[] = [
     { id: "3209082", active: true, login: "TestRoom", currency: "ARS", totalBet: 500, totalWin: 550, profit: 50, rtp: 110, terminals: 0, balance: 550 },
 ];
 
-export const gameProvidersData: GameProvider[] = [
-  { name: '7 Mojos (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Absolute Live Gaming (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Altente Gaming RL (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Amigo gaming, Goldenrace, Mancala, Red Tiger, Smartsoft OP (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Aviator, Jetx OP (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Aviatrix Original (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Booming OP (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Booming Original (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Buffalo Thunder (fishing)', value: null, actions: ['Show'] },
-  { name: 'EGT Digital, Pragmatic Play, NetEnt, ELK Studios (Slot zona)', value: null, actions: ['Show'] },
-  { name: 'Evolution Expensive EV (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Evolution Live Dealers (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Evolution Lobby OP (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Evolution OP (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Evolution Original (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Ezugi EV (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Firekirin', value: null, actions: ['Show'] },
-  { name: 'Galaxsys, 3oaks, Onetouch OP (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Hacksaw OP (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Holi Bet (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'IGT, EGT, Amatic, Aristocrat, Apollo, Wazdan, Microgaming', value: null, actions: ['Config', 'Show'] },
-  { name: 'KaGaming OP (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Merkur', value: null, actions: ['Show'] },
-  { name: 'Novomatic', value: null, actions: ['Config', 'Show'] },
-  { name: 'PGSoft OP (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'PGSoft, Pragmatic, 3 Oaks (slgames2)', value: null, actions: ['Show'] },
-  { name: 'Platipus (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Platipus, Microgaming, Microgaming Live OP (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Playson EV (prepayment)', value: '0.00', actions: ['Show'] },
-  { name: 'Pragmatic Live EV (prepayment)', value: '0.00', actions: ['Show'] },
-];
-
-const absoluteLiveGames: Game[] = [
-  { id: 4573, name: 'Absolute Live Gaming [absolute_live]', active: true },
-  { id: 8109, name: 'Black Jack [absolute_live]', active: true },
-];
-
-const igtGames: Game[] = [
-    { id: 1001, name: 'Cleopatra', active: true },
-    { id: 1002, name: 'Da Vinci Diamonds', active: false },
-    { id: 1003, name: 'Wheel of Fortune', active: true },
-];
-
-export const gamesByProvider: Record<string, Game[]> = {
-    'Absolute Live Gaming (prepayment)': absoluteLiveGames,
-    'IGT, EGT, Amatic, Aristocrat, Apollo, Wazdan, Microgaming': igtGames,
-};
+export const gameProvidersData: GameProvider[] = [];
+export const gamesByProvider: Record<string, Game[]> = {};
