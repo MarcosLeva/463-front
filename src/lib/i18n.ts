@@ -464,6 +464,32 @@ const resources = {
             "title": "Room Created",
             "description": "The room '{{name}}' has been created successfully."
         }
+      },
+      "hallDetails": {
+        "title": "Hall Details",
+        "editHall": "Edit Hall",
+        "refresh": "Refresh",
+        "noData": "No data available.",
+        "filters": {
+            "login": "Login",
+            "from": "From",
+            "to": "To",
+            "period": "Period",
+            "today": "Today",
+            "all": "All",
+            "show": "Show"
+        },
+        "table": {
+            "login": "Login",
+            "totalBet": "Total Bet",
+            "totalWin": "Total Win",
+            "profit": "Profit",
+            "rtp": "RTP",
+            "jackpots": "Jackpots",
+            "fg": "FG",
+            "actions": "Actions",
+            "action_details": "Details"
+        }
       }
     }
   },
@@ -922,6 +948,32 @@ const resources = {
         "success": {
             "title": "Sala Creada",
             "description": "La sala '{{name}}' ha sido creada con éxito."
+        }
+      },
+       "hallDetails": {
+        "title": "Detalles de la Sala",
+        "editHall": "Editar Sala",
+        "refresh": "Refrescar",
+        "noData": "No hay datos disponibles.",
+        "filters": {
+            "login": "Login",
+            "from": "Desde",
+            "to": "Hasta",
+            "period": "Período",
+            "today": "Hoy",
+            "all": "Todos",
+            "show": "Mostrar"
+        },
+        "table": {
+            "login": "Login",
+            "totalBet": "Apuesta Total",
+            "totalWin": "Ganancia Total",
+            "profit": "Lucro",
+            "rtp": "RTP",
+            "jackpots": "Jackpots",
+            "fg": "FG",
+            "actions": "Acciones",
+            "action_details": "Detalles"
         }
       }
     }

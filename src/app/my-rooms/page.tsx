@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
@@ -94,7 +95,9 @@ const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], cur
                 <TableCell>
                     <div className='flex items-center gap-2'>
                         <Link href="#" className="text-primary hover:underline">{entry.login}</Link>
-                        <Gamepad2 className='h-4 w-4 text-muted-foreground' />
+                        <Link href={`/my-rooms/${entry.id}`}>
+                          <Gamepad2 className='h-4 w-4 text-muted-foreground cursor-pointer hover:text-primary' />
+                        </Link>
                     </div>
                 </TableCell>
                 <TableCell>{entry.currency}</TableCell>
@@ -207,12 +210,14 @@ export default function MyRoomsPage() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>{t('myRooms.title')}</CardTitle>
-            <Button asChild className="bg-green-600 hover:bg-green-700">
-                <Link href="/my-rooms/create">
-                    <PlusCircle className="mr-2 h-4 w-4" />
-                    {t('myRooms.createRoom')}
-                </Link>
-            </Button>
+            <div className="flex justify-end">
+                <Button asChild className="bg-green-600 hover:bg-green-700">
+                    <Link href="/my-rooms/create">
+                        <PlusCircle className="mr-2 h-4 w-4" />
+                        {t('myRooms.createRoom')}
+                    </Link>
+                </Button>
+            </div>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-4">
