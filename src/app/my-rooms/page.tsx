@@ -52,12 +52,7 @@ const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], cur
         <TableHeader className="bg-[#23303a]">
           <TableRow>
             <TableHead>{t('myRooms.table.id')}</TableHead>
-            <TableHead>
-                <div className="flex justify-center gap-2">
-                    <Checkbox />
-                    <Checkbox />
-                </div>
-            </TableHead>
+            <TableHead></TableHead>
             <TableHead>{t('myRooms.table.login')}</TableHead>
             <TableHead></TableHead>
             <TableHead>{t('myRooms.table.currency')}</TableHead>
