@@ -22,10 +22,14 @@ import { Switch } from '@/components/ui/switch';
 import { useAuthStore } from '@/store/auth';
 
 
-const GameItem = ({ game, isChecked, onToggle }: { game: Game, isChecked: boolean, onToggle: (checked: boolean) => void }) => {
+const GameItem = ({ game, isChecked, onToggle, providerName, roomId }: { game: Game; isChecked: boolean; onToggle: (checked: boolean) => void, providerName: string, roomId: string }) => {
+    const { t } = useTranslation();
     return (
-         <div className="grid grid-cols-[1fr_auto] items-center gap-x-2 border p-2 rounded-md bg-background">
+         <div className="grid grid-cols-[1fr_auto_auto] items-center gap-x-2 border p-2 rounded-md bg-background">
             <span className="text-sm truncate">{game.name}</span>
+            <Button asChild size="sm">
+                <Link href={`/my-rooms/${roomId}/games/${encodeURIComponent(providerName)}`}>{t('editRoom.games')}</Link>
+            </Button>
             <Switch
                 checked={isChecked}
                 onCheckedChange={onToggle}
@@ -34,7 +38,7 @@ const GameItem = ({ game, isChecked, onToggle }: { game: Game, isChecked: boolea
     );
 };
 
-const ProviderGamesList = ({ games, gameStatus, onGameStatusChange }: { games: Game[], gameStatus: Record<string, boolean>, onGameStatusChange: (gameId: string, checked: boolean) => void }) => {
+const ProviderGamesList = ({ games, gameStatus, onGameStatusChange, providerName, roomId }: { games: Game[], gameStatus: Record<string, boolean>, onGameStatusChange: (gameId: string, checked: boolean) => void, providerName: string, roomId: string }) => {
     const { t } = useTranslation();
 
     if (!games || games.length === 0) {
@@ -49,6 +53,8 @@ const ProviderGamesList = ({ games, gameStatus, onGameStatusChange }: { games: G
                     game={game}
                     isChecked={gameStatus[game.id] ?? game.active}
                     onToggle={(checked) => onGameStatusChange(game.id, checked)}
+                    providerName={providerName}
+                    roomId={roomId}
                 />
             ))}
         </div>
@@ -96,9 +102,6 @@ const GameProvidersTable = ({ data, onGameStatusChange, gameStatus, id }: { data
                 <TableRow>
                   <TableCell>{provider.name}</TableCell>
                   <TableCell className="text-right space-x-2">
-                    <Button asChild size="sm">
-                        <Link href={`/my-rooms/${id}/games/${encodeURIComponent(provider.name)}`}>{t('editRoom.config')}</Link>
-                    </Button>
                     <Button 
                         size="sm" 
                         className={isExpanded ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'}
@@ -115,6 +118,8 @@ const GameProvidersTable = ({ data, onGameStatusChange, gameStatus, id }: { data
                           games={provider.games}
                           gameStatus={gameStatus[provider.id] || {}}
                           onGameStatusChange={(gameId, checked) => onGameStatusChange(provider.id, gameId, checked)}
+                          providerName={provider.name}
+                          roomId={id}
                         />
                     </TableCell>
                   </TableRow>
