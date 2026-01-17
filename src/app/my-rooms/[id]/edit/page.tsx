@@ -186,7 +186,9 @@ export default function EditRoomPage() {
                     <Button asChild variant="outline" className="bg-green-600 text-white hover:bg-green-700 hover:text-white">
                         <Link href={`/my-rooms/${id}/users`}>{t('editRoom.users')}</Link>
                     </Button>
-                    <Button variant="outline" className="bg-purple-600 text-white hover:bg-purple-700 hover:text-white">{t('editRoom.games')}</Button>
+                    <Button asChild variant="outline" className="bg-purple-600 text-white hover:bg-purple-700 hover:text-white">
+                       <Link href={`/my-rooms/${id}/games`}>{t('editRoom.games')}</Link>
+                    </Button>
                 </div>
             </CardHeader>
             <CardContent className="p-0">

@@ -533,7 +533,13 @@ const resources = {
             "description": "A new hall key has been generated."
         },
         "users": "Users",
-        "games": "Games"
+        "games": "Games",
+        "editGames": "Edit Hall :: Games",
+        "gameProviders": "Games Providers",
+        "showHideAll": "Show/Hide All Active Game Systems",
+        "showAll": "Show All",
+        "show": "Show",
+        "config": "Config"
       }
     }
   },
@@ -1062,7 +1068,13 @@ const resources = {
             "description": "Se ha generado una nueva clave de sala."
         },
         "users": "Usuarios",
-        "games": "Juegos"
+        "games": "Juegos",
+        "editGames": "Editar Sala :: Juegos",
+        "gameProviders": "Proveedores de Juegos",
+        "showHideAll": "Mostrar/Ocultar Todos los Sistemas de Juego Activos",
+        "showAll": "Mostrar Todos",
+        "show": "Mostrar",
+        "config": "Config"
       }
     }
   }

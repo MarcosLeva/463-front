@@ -97,4 +97,10 @@ export type Room = {
     profit: number;
     rtp: number;
 };
+
+export type GameProvider = {
+  name: string;
+  value: string | null;
+  actions: ('Show' | 'Config')[];
+};
     
