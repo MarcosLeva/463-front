@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -22,11 +23,9 @@ import { useAuthStore } from '@/store/auth';
 
 
 const GameItem = ({ game, isChecked, onToggle }: { game: Game, isChecked: boolean, onToggle: (checked: boolean) => void }) => {
-    const { t } = useTranslation();
     return (
-         <div className="grid grid-cols-[1fr_auto_auto] items-center gap-x-2 border p-2 rounded-md bg-background">
+         <div className="grid grid-cols-[1fr_auto] items-center gap-x-2 border p-2 rounded-md bg-background">
             <span className="text-sm truncate">{game.name}</span>
-            <Button variant="outline" size="sm" className="h-8">{t('editRoom.games')}</Button>
             <Switch
                 checked={isChecked}
                 onCheckedChange={onToggle}
@@ -56,7 +55,7 @@ const ProviderGamesList = ({ games, gameStatus, onGameStatusChange }: { games: G
     );
 }
 
-const GameProvidersTable = ({ data, onGameStatusChange, gameStatus }: { data: GameProvider[], gameStatus: Record<string, Record<string, boolean>>, onGameStatusChange: (providerId: string, gameId: string, checked: boolean) => void }) => {
+const GameProvidersTable = ({ data, onGameStatusChange, gameStatus, id }: { data: GameProvider[], gameStatus: Record<string, Record<string, boolean>>, onGameStatusChange: (providerId: string, gameId: string, checked: boolean) => void, id: string }) => {
   const { t } = useTranslation();
   const [expandedProviders, setExpandedProviders] = useState<Record<string, boolean>>({});
 
@@ -82,7 +81,7 @@ const GameProvidersTable = ({ data, onGameStatusChange, gameStatus }: { data: Ga
       <Table>
         <TableBody>
           <TableRow className="bg-muted/30 hover:bg-muted/30">
-            <TableCell colSpan={2} className="font-medium">{t('editRoom.showHideAll')}</TableCell>
+            <TableCell className="font-medium">{t('editRoom.showHideAll')}</TableCell>
             <TableCell className="text-right">
               <Button size="sm" className='bg-blue-600 hover:bg-blue-700' onClick={toggleAll}>
                 {areAllShown ? t('editRoom.hide') : t('editRoom.showAll')}
@@ -95,8 +94,11 @@ const GameProvidersTable = ({ data, onGameStatusChange, gameStatus }: { data: Ga
             return (
               <React.Fragment key={provider.id}>
                 <TableRow>
-                  <TableCell colSpan={2}>{provider.name}</TableCell>
+                  <TableCell>{provider.name}</TableCell>
                   <TableCell className="text-right space-x-2">
+                    <Button asChild size="sm">
+                        <Link href={`/my-rooms/${id}/games/${encodeURIComponent(provider.name)}`}>{t('editRoom.config')}</Link>
+                    </Button>
                     <Button 
                         size="sm" 
                         className={isExpanded ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'}
@@ -108,7 +110,7 @@ const GameProvidersTable = ({ data, onGameStatusChange, gameStatus }: { data: Ga
                 </TableRow>
                 {isExpanded && (
                   <TableRow>
-                    <TableCell colSpan={3} className="p-0">
+                    <TableCell colSpan={2} className="p-0">
                        <ProviderGamesList
                           games={provider.games}
                           gameStatus={gameStatus[provider.id] || {}}
@@ -262,7 +264,7 @@ export default function EditRoomGamesPage() {
               <CardTitle>{`[${room.login}] ${t('editRoom.editGames')}`}</CardTitle>
           </CardHeader>
           <CardContent>
-             <GameProvidersTable data={gameProviders} gameStatus={gameStatus} onGameStatusChange={handleGameStatusChange} />
+             <GameProvidersTable data={gameProviders} gameStatus={gameStatus} onGameStatusChange={handleGameStatusChange} id={id as string} />
           </CardContent>
            <CardFooter className="mt-6 flex justify-center border-t pt-6">
                 <Button onClick={handleSave} className="bg-green-600 hover:bg-green-700">{t('editRoom.save')}</Button>
