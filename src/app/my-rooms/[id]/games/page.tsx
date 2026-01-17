@@ -21,6 +21,20 @@ import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 
 const GameProvidersTable = ({ data }: { data: GameProvider[] }) => {
   const { t } = useTranslation();
+  const [expandedProviders, setExpandedProviders] = useState<Record<string, boolean>>({});
+
+  const toggleProvider = (providerName: string) => {
+    setExpandedProviders(prev => ({
+      ...prev,
+      [providerName]: !prev[providerName]
+    }));
+  };
+  
+  const [providerStatus, setProviderStatus] = useState<Record<string, boolean>>({});
+  
+  const toggleProviderStatus = (providerName: string) => {
+      setProviderStatus(prev => ({...prev, [providerName]: !prev[providerName]}));
+  }
 
   return (
     <div className="w-full rounded-md border">
@@ -33,16 +47,57 @@ const GameProvidersTable = ({ data }: { data: GameProvider[] }) => {
               <Button size="sm" className='bg-blue-600 hover:bg-blue-700'>{t('editRoom.showAll')}</Button>
             </TableCell>
           </TableRow>
-          {data.map((provider, index) => (
-            <TableRow key={index}>
-              <TableCell>{provider.name}</TableCell>
-              <TableCell className="text-right">{provider.value || ''}</TableCell>
-              <TableCell className="text-right space-x-2">
-                {provider.actions.includes('Config') && <Button size="sm" className="bg-green-600 text-white hover:bg-green-700">{t('editRoom.config')}</Button>}
-                {provider.actions.includes('Show') && <Button size="sm" className="bg-green-600 text-white hover:bg-green-700">{t('editRoom.show')}</Button>}
-              </TableCell>
-            </TableRow>
-          ))}
+          {data.map((provider, index) => {
+            const isExpanded = expandedProviders[provider.name];
+            const isOn = providerStatus[provider.name] ?? true;
+
+            return (
+              <React.Fragment key={index}>
+                <TableRow>
+                  <TableCell>{provider.name}</TableCell>
+                  <TableCell className="text-right">{provider.value || ''}</TableCell>
+                  <TableCell className="text-right space-x-2">
+                    {provider.actions.includes('Config') && <Button size="sm" className="bg-green-600 text-white hover:bg-green-700">{t('editRoom.config')}</Button>}
+                    {provider.actions.includes('Show') && (
+                       <Button 
+                        size="sm" 
+                        className={isExpanded ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'}
+                        onClick={() => toggleProvider(provider.name)}
+                      >
+                        {isExpanded ? t('editRoom.hide') : t('editRoom.show')}
+                      </Button>
+                    )}
+                  </TableCell>
+                </TableRow>
+                {isExpanded && (
+                  <TableRow className="bg-muted/20 hover:bg-muted/20">
+                    <TableCell className="pl-8">{provider.name.replace(' (prepayment)', '').toUpperCase()}</TableCell>
+                    <TableCell className="text-right">
+                       <div className="flex items-center justify-end gap-0">
+                          <Button 
+                            size="sm" 
+                            className={`px-3 h-7 rounded-r-none ${isOn ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-700'}`}
+                            onClick={() => toggleProviderStatus(provider.name)}
+                           >
+                            ON
+                           </Button>
+                          <Button 
+                            size="sm"
+                            className={`px-3 h-7 rounded-l-none ${!isOn ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-700'}`}
+                            onClick={() => toggleProviderStatus(provider.name)}
+                           >
+                            OFF
+                          </Button>
+                       </div>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <Button size="sm" className="bg-blue-600 hover:bg-blue-700">{t('editRoom.games')}</Button>
+                    </TableCell>
+                  </TableRow>
+                )}
+              </React.Fragment>
+            )
+          })}
         </TableBody>
       </Table>
     </div>

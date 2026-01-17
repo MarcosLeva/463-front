@@ -539,6 +539,7 @@ const resources = {
         "showHideAll": "Show/Hide All Active Game Systems",
         "showAll": "Show All",
         "show": "Show",
+        "hide": "Hide",
         "config": "Config"
       }
     }
@@ -1074,6 +1075,7 @@ const resources = {
         "showHideAll": "Mostrar/Ocultar Todos los Sistemas de Juego Activos",
         "showAll": "Mostrar Todos",
         "show": "Mostrar",
+        "hide": "Ocultar",
         "config": "Config"
       }
     }
