@@ -30,7 +30,7 @@ import {
 } from '@/components/ui/table';
 import { roomsData } from '@/lib/data';
 import type { Room } from '@/lib/types';
-import { Home, ChevronRight, Gamepad2, PlusCircle } from 'lucide-react';
+import { Home, ChevronRight, Gamepad2, PlusCircle, MonitorSmartphone } from 'lucide-react';
 import { PaginationControls } from '@/components/dashboard/pagination-controls';
 import Link from 'next/link';
 import { TableSkeleton } from '@/components/dashboard/table-skeleton';
@@ -59,6 +59,7 @@ const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], cur
                 </div>
             </TableHead>
             <TableHead>{t('myRooms.table.login')}</TableHead>
+            <TableHead></TableHead>
             <TableHead>{t('myRooms.table.currency')}</TableHead>
             <TableHead className="text-right">{t('myRooms.table.totalBet')}</TableHead>
             <TableHead className="text-right">{t('myRooms.table.totalWin')}</TableHead>
@@ -73,7 +74,7 @@ const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], cur
             const rtp = total.totalBet > 0 ? (total.totalWin / total.totalBet) * 100 : 0;
             return (
               <TableRow key={`total-${currency}`} className="font-bold">
-                <TableCell colSpan={3}></TableCell>
+                <TableCell colSpan={4}></TableCell>
                 <TableCell>{currency}</TableCell>
                 <TableCell className="text-right text-green-500">{formatCurrency(total.totalBet)}</TableCell>
                 <TableCell className="text-right text-green-500">{formatCurrency(total.totalWin)}</TableCell>
@@ -100,6 +101,12 @@ const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], cur
                         </Link>
                     </div>
                 </TableCell>
+                <TableCell>
+                    <div className="flex items-center justify-center gap-1 text-muted-foreground">
+                        <MonitorSmartphone className="h-4 w-4" />
+                        <span>{entry.terminals}</span>
+                    </div>
+                </TableCell>
                 <TableCell>{entry.currency}</TableCell>
                 <TableCell className="text-right">{formatCurrency(entry.totalBet)}</TableCell>
                 <TableCell className="text-right">{formatCurrency(entry.totalWin)}</TableCell>
@@ -122,7 +129,7 @@ const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], cur
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={8} className="h-24 text-center">
+              <TableCell colSpan={9} className="h-24 text-center">
                 {t('myRooms.noData')}
               </TableCell>
             </TableRow>
@@ -288,7 +295,7 @@ export default function MyRoomsPage() {
             </div>
           </div>
           {loading ? (
-             <TableSkeleton columns={8} rows={itemsPerPage} />
+             <TableSkeleton columns={9} rows={itemsPerPage} />
           ) : (
             <MyRoomsTable data={paginatedData} currencyTotals={currencyTotals} currentPage={currentPage} />
           )}

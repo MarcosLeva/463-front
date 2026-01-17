@@ -284,11 +284,11 @@ export const intersectionIpData: IntersectionIpEntry[] = [
 ];
 
 export const roomsData: Room[] = [
-    { id: 3208651, active: false, login: "TBSArs2716USD", currency: "USD", totalBet: 0, totalWin: 0, profit: 0, rtp: 0 },
-    { id: 3208656, active: true, login: "TBSArs2716-seamless", currency: "USD", totalBet: 0, totalWin: 0, profit: 0, rtp: 0 },
-    { id: 3209080, active: true, login: "ArsDota", currency: "ARS", totalBet: 0, totalWin: 0, profit: 0, rtp: 0 },
-    { id: 3209081, active: false, login: "AnotherRoom", currency: "USD", totalBet: 100, totalWin: 80, profit: -20, rtp: 80 },
-    { id: 3209082, active: true, login: "TestRoom", currency: "ARS", totalBet: 500, totalWin: 550, profit: 50, rtp: 110 },
+    { id: 3208651, active: false, login: "TBSArs2716USD", currency: "USD", totalBet: 0, totalWin: 0, profit: 0, rtp: 0, terminals: 0 },
+    { id: 3208656, active: true, login: "TBSArs2716-seamless", currency: "USD", totalBet: 0, totalWin: 0, profit: 0, rtp: 0, terminals: 0 },
+    { id: 3209080, active: true, login: "ArsDota", currency: "ARS", totalBet: 0, totalWin: 0, profit: 0, rtp: 0, terminals: 0 },
+    { id: 3209081, active: false, login: "AnotherRoom", currency: "USD", totalBet: 100, totalWin: 80, profit: -20, rtp: 80, terminals: 0 },
+    { id: 3209082, active: true, login: "TestRoom", currency: "ARS", totalBet: 500, totalWin: 550, profit: 50, rtp: 110, terminals: 0 },
 ];
 
 export const gameProvidersData: GameProvider[] = [

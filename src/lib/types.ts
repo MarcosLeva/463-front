@@ -96,6 +96,7 @@ export type Room = {
     totalWin: number;
     profit: number;
     rtp: number;
+    terminals: number;
 };
 
 export type GameProvider = {
