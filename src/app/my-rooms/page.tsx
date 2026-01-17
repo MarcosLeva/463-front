@@ -102,10 +102,12 @@ const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], cur
                     </div>
                 </TableCell>
                 <TableCell>
-                    <div className="flex items-center justify-center gap-1 text-muted-foreground">
+                  <Link href={`/my-rooms/${entry.id}/users`}>
+                    <div className="flex items-center justify-center gap-1 text-muted-foreground hover:text-primary cursor-pointer">
                         <MonitorSmartphone className="h-4 w-4" />
                         <span>{entry.terminals}</span>
                     </div>
+                  </Link>
                 </TableCell>
                 <TableCell>{entry.currency}</TableCell>
                 <TableCell className="text-right">{formatCurrency(entry.totalBet)}</TableCell>
