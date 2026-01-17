@@ -18,6 +18,7 @@ import { roomsData, gameProvidersData } from '@/lib/data';
 import type { Room, GameProvider } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+import { Switch } from '@/components/ui/switch';
 
 const GameProvidersTable = ({ data }: { data: GameProvider[] }) => {
   const { t } = useTranslation();
@@ -75,21 +76,11 @@ const GameProvidersTable = ({ data }: { data: GameProvider[] }) => {
                   <TableRow className="bg-muted/20 hover:bg-muted/20">
                     <TableCell className="pl-8">{provider.name.replace(' (prepayment)', '').toUpperCase()}</TableCell>
                     <TableCell className="text-right">
-                       <div className="flex items-center justify-end gap-0">
-                          <Button 
-                            size="sm" 
-                            className={`px-3 h-7 rounded-r-none ${isOn ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-700'}`}
-                            onClick={() => toggleProviderStatus(provider.name)}
-                           >
-                            ON
-                           </Button>
-                          <Button 
-                            size="sm"
-                            className={`px-3 h-7 rounded-l-none ${!isOn ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-700'}`}
-                            onClick={() => toggleProviderStatus(provider.name)}
-                           >
-                            OFF
-                          </Button>
+                       <div className="flex items-center justify-end">
+                          <Switch
+                            checked={isOn}
+                            onCheckedChange={() => toggleProviderStatus(provider.name)}
+                          />
                        </div>
                     </TableCell>
                     <TableCell className="text-right">

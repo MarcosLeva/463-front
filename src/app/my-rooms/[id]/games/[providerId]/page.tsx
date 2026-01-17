@@ -17,6 +17,7 @@ import { useToast } from '@/hooks/use-toast';
 import { roomsData, gameProvidersData, gamesByProvider } from '@/lib/data';
 import type { Room, GameProvider, Game } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Switch } from '@/components/ui/switch';
 
 
 const ProviderGamesTable = ({ games }: { games: Game[] }) => {
@@ -38,22 +39,10 @@ const ProviderGamesTable = ({ games }: { games: Game[] }) => {
              <div className="grid grid-cols-[auto_1fr_auto] items-center gap-x-4 border p-2 rounded-md">
                 <span className="text-sm font-medium text-muted-foreground">{game.id}</span>
                 <span className="text-sm truncate">{game.name}</span>
-                <div className="flex items-center justify-end gap-0">
-                    <Button
-                        size="sm"
-                        className={`px-3 h-7 rounded-r-none ${isOn ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-700'}`}
-                        onClick={() => toggleGameStatus(game.id)}
-                    >
-                        ON
-                    </Button>
-                    <Button
-                        size="sm"
-                        className={`px-3 h-7 rounded-l-none ${!isOn ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-700'}`}
-                        onClick={() => toggleGameStatus(game.id)}
-                    >
-                        OFF
-                    </Button>
-                </div>
+                <Switch 
+                    checked={isOn}
+                    onCheckedChange={() => toggleGameStatus(game.id)}
+                />
             </div>
         );
     };
