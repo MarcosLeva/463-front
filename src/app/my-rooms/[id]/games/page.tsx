@@ -35,8 +35,8 @@ const GameProvidersTable = ({ data }: { data: GameProvider[] }) => {
   
   const [providerStatus, setProviderStatus] = useState<Record<string, boolean>>({});
   
-  const toggleProviderStatus = (providerName: string) => {
-      setProviderStatus(prev => ({...prev, [providerName]: !prev[providerName]}));
+  const toggleProviderStatus = (providerName: string, checked: boolean) => {
+      setProviderStatus(prev => ({...prev, [providerName]: checked}));
   }
 
   return (
@@ -50,12 +50,12 @@ const GameProvidersTable = ({ data }: { data: GameProvider[] }) => {
               <Button size="sm" className='bg-blue-600 hover:bg-blue-700'>{t('editRoom.showAll')}</Button>
             </TableCell>
           </TableRow>
-          {data.map((provider, index) => {
+          {data.map((provider) => {
             const isExpanded = expandedProviders[provider.name];
             const isOn = providerStatus[provider.name] ?? true;
 
             return (
-              <React.Fragment key={index}>
+              <React.Fragment key={provider.name}>
                 <TableRow>
                   <TableCell>{provider.name}</TableCell>
                   <TableCell className="text-right">{provider.value || ''}</TableCell>
@@ -79,7 +79,7 @@ const GameProvidersTable = ({ data }: { data: GameProvider[] }) => {
                        <div className="flex items-center justify-end">
                           <Switch
                             checked={isOn}
-                            onCheckedChange={() => toggleProviderStatus(provider.name)}
+                            onCheckedChange={(checked) => toggleProviderStatus(provider.name, checked)}
                           />
                        </div>
                     </TableCell>

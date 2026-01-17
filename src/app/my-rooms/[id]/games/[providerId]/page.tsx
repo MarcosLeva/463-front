@@ -29,8 +29,8 @@ const ProviderGamesTable = ({ games }: { games: Game[] }) => {
         }, {} as Record<number, boolean>)
     );
 
-    const toggleGameStatus = (gameId: number) => {
-        setGameStatus(prev => ({...prev, [gameId]: !prev[gameId]}));
+    const toggleGameStatus = (gameId: number, checked: boolean) => {
+        setGameStatus(prev => ({...prev, [gameId]: checked}));
     }
 
     const GameItem = ({ game }: { game: Game }) => {
@@ -41,7 +41,7 @@ const ProviderGamesTable = ({ games }: { games: Game[] }) => {
                 <span className="text-sm truncate">{game.name}</span>
                 <Switch 
                     checked={isOn}
-                    onCheckedChange={() => toggleGameStatus(game.id)}
+                    onCheckedChange={(checked) => toggleGameStatus(game.id, checked)}
                 />
             </div>
         );
