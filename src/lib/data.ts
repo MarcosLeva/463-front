@@ -1,4 +1,4 @@
-import type { User, BalanceHistoryEntry, ProviderStatistic, ChangeLogEntry, IntersectionIpEntry, Room, GameProvider } from "./types";
+import type { User, BalanceHistoryEntry, ProviderStatistic, ChangeLogEntry, IntersectionIpEntry, Room, GameProvider, Game } from "./types";
 import { subDays, subHours, format } from "date-fns";
 
 export const users: User[] = [
@@ -323,3 +323,19 @@ export const gameProvidersData: GameProvider[] = [
   { name: 'Playson EV (prepayment)', value: '0.00', actions: ['Show'] },
   { name: 'Pragmatic Live EV (prepayment)', value: '0.00', actions: ['Show'] },
 ];
+
+const absoluteLiveGames: Game[] = [
+  { id: 4573, name: 'Absolute Live Gaming [absolute_live]', active: true },
+  { id: 8109, name: 'Black Jack [absolute_live]', active: true },
+];
+
+const igtGames: Game[] = [
+    { id: 1001, name: 'Cleopatra', active: true },
+    { id: 1002, name: 'Da Vinci Diamonds', active: false },
+    { id: 1003, name: 'Wheel of Fortune', active: true },
+];
+
+export const gamesByProvider: Record<string, Game[]> = {
+    'Absolute Live Gaming (prepayment)': absoluteLiveGames,
+    'IGT, EGT, Amatic, Aristocrat, Apollo, Wazdan, Microgaming': igtGames,
+};

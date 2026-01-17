@@ -21,6 +21,8 @@ import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 
 const GameProvidersTable = ({ data }: { data: GameProvider[] }) => {
   const { t } = useTranslation();
+  const params = useParams();
+  const { id } = params;
   const [expandedProviders, setExpandedProviders] = useState<Record<string, boolean>>({});
 
   const toggleProvider = (providerName: string) => {
@@ -91,7 +93,11 @@ const GameProvidersTable = ({ data }: { data: GameProvider[] }) => {
                        </div>
                     </TableCell>
                     <TableCell className="text-right">
-                      <Button size="sm" className="bg-blue-600 hover:bg-blue-700">{t('editRoom.games')}</Button>
+                      <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-700">
+                        <Link href={`/my-rooms/${id}/games/${encodeURIComponent(provider.name)}`}>
+                          {t('editRoom.games')}
+                        </Link>
+                      </Button>
                     </TableCell>
                   </TableRow>
                 )}

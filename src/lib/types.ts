@@ -103,4 +103,10 @@ export type GameProvider = {
   value: string | null;
   actions: ('Show' | 'Config')[];
 };
+
+export type Game = {
+    id: number;
+    name: string;
+    active: boolean;
+};
     
