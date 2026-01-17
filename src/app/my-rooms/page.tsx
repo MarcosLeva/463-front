@@ -1,7 +1,8 @@
 
+
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import {
   Card,
   CardContent,
@@ -28,7 +29,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { roomsData } from '@/lib/data';
 import type { Room } from '@/lib/types';
 import { Home, ChevronRight, Gamepad2, PlusCircle, MonitorSmartphone } from 'lucide-react';
 import { PaginationControls } from '@/components/dashboard/pagination-controls';
@@ -36,6 +36,8 @@ import Link from 'next/link';
 import { TableSkeleton } from '@/components/dashboard/table-skeleton';
 import { useTranslation } from 'react-i18next';
 import { Badge } from '@/components/ui/badge';
+import { useAuthStore } from '@/store/auth';
+import { useToast } from '@/hooks/use-toast';
 
 const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], currencyTotals: Record<string, { totalBet: number; totalWin: number; profit: number; }>, currentPage: number }) => {
   const { t } = useTranslation();
@@ -124,6 +126,10 @@ const MyRoomsTable = ({ data, currencyTotals, currentPage }: { data: Room[], cur
 export default function MyRoomsPage() {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
+  const [rooms, setRooms] = useState<Room[]>([]);
+  const { user, accessToken } = useAuthStore();
+  const { toast } = useToast();
+
   const [fromDate, setFromDate] = useState<Date | undefined>(
     new Date('2026-01-17T00:00:00')
   );
@@ -136,12 +142,52 @@ export default function MyRoomsPage() {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   
-  useEffect(() => {
-    const timer = setTimeout(() => {
+  const fetchRooms = useCallback(async () => {
+    if (!user?.id || !accessToken) {
       setLoading(false);
-    }, 1500);
-    return () => clearTimeout(timer);
-  }, []);
+      return;
+    }
+    setLoading(true);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/halls/${user.id}`, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch rooms');
+      }
+      const data = await response.json();
+
+      const transformedData: Room[] = data.map((apiRoom: any) => ({
+        id: apiRoom.id,
+        active: apiRoom.status === 'ACTIVE',
+        login: apiRoom.name,
+        currency: apiRoom.currency,
+        balance: parseFloat(apiRoom.balance),
+        rtp: apiRoom.rtpBps / 100,
+        totalBet: 0,
+        totalWin: 0,
+        profit: 0,
+        terminals: apiRoom.hallGames?.length || 0,
+      }));
+
+      setRooms(transformedData);
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Error",
+        description: "Could not load rooms data.",
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
+  }, [user, accessToken, toast]);
+
+  useEffect(() => {
+    fetchRooms();
+  }, [fetchRooms]);
 
   const handleTimeChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -164,8 +210,8 @@ export default function MyRoomsPage() {
   };
 
   const filteredData = useMemo(() => {
-    return roomsData;
-  }, []);
+    return rooms;
+  }, [rooms]);
   
   const currencyTotals = useMemo(() => {
     return filteredData.reduce((acc, room) => {

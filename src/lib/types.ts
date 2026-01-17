@@ -88,7 +88,7 @@ export type HierarchyUser = {
 };
 
 export type Room = {
-    id: number;
+    id: string;
     active: boolean;
     login: string;
     currency: string;
@@ -97,6 +97,7 @@ export type Room = {
     profit: number;
     rtp: number;
     terminals: number;
+    balance: number;
 };
 
 export type GameProvider = {
